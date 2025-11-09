@@ -4,6 +4,7 @@
     { "size": 8 },
     { "size": 6 },
     { "size": 3 }
-  ]
+  ],
+  "_comment": "Weights are automatically generated if not provided. Each weight connects a neuron in one layer to a neuron in the next layer."
 }
 

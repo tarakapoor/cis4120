@@ -101,6 +101,18 @@ export const glossary: Record<string, TermDefinition> = {
     definition: "The process of teaching a neural network by showing it many examples and adjusting the weights of connections to improve its performance. This is how the network learns.",
     example: "Training a network to recognize cats involves showing it thousands of cat images and adjusting the network until it can correctly identify cats.",
     relatedTerms: ["weight", "learning", "network"]
+  },
+  steering: {
+    term: "steering",
+    definition: "The act of manually adjusting a neural network's behavior by changing its weights. By modifying weights, you can guide or 'steer' the network toward different outputs or behaviors, like adjusting how a robot makes decisions.",
+    example: "If a robot turns too sharply, you can steer it by reducing the weights that cause sharp turns, making it turn more gently.",
+    relatedTerms: ["weight", "policy", "adjustment"]
+  },
+  perturbation: {
+    term: "perturbation",
+    definition: "A small change or adjustment made to the network's parameters (like weights) to see how it affects the network's behavior. It's like giving the network a gentle nudge to see how it reacts.",
+    example: "Making a small perturbation to a weight (like changing it from 0.5 to 0.6) lets you see how that small change affects what the network decides.",
+    relatedTerms: ["weight", "adjustment", "steering"]
   }
 };
 
