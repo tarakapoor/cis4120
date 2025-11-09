@@ -75,6 +75,8 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
+import InfoPanel from "../UI/InfoPanel";
+import TermDefinition from "../UI/TermDefinition";
 
 export default function NetworkGraph({ model }: any) {
   const ref = useRef(null);
@@ -87,6 +89,11 @@ export default function NetworkGraph({ model }: any) {
     const svg = d3.select(ref.current);
     svg.selectAll("*").remove();
 
+    // Get SVG dimensions from its container
+    const svgElement = ref.current as SVGSVGElement;
+    if (!svgElement) return;
+    
+    // Use fixed dimensions for calculation, SVG will scale via CSS
     const width = 900;
     const height = 600;
 
@@ -157,8 +164,11 @@ export default function NetworkGraph({ model }: any) {
 
       // Tooltip
       .on("mouseenter", (event, d) => {
+        const svgElement = ref.current as SVGSVGElement;
+        if (!svgElement) return;
+        const rect = svgElement.getBoundingClientRect();
         const [x, y] = d3.pointer(event);
-        setTooltip({ x, y, text: d.id });
+        setTooltip({ x: x + rect.left, y: y + rect.top, text: d.id });
       })
       .on("mouseleave", () => setTooltip(null))
 
@@ -220,27 +230,128 @@ export default function NetworkGraph({ model }: any) {
   }, [model, selected]);
 
   return (
-    <div style={{ position: "relative", width: 900, height: 600 }}>
-      {tooltip && (
-        <div
-          style={{
-            position: "absolute",
-            top: tooltip.y + 10,
-            left: tooltip.x + 10,
-            background: "white",
-            padding: "4px 8px",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-            fontSize: "12px",
-            pointerEvents: "none",
-            zIndex: 10
-          }}
-        >
-          {tooltip.text}
+    <div style={{ position: "relative", width: "100%", height: "100%", padding: "20px" }}>
+      <div style={{ marginBottom: "16px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <div>
+          <h2 style={{ margin: "0 0 8px 0", fontSize: "24px" }}>
+            <TermDefinition term="neural network">Neural Network</TermDefinition> Visualization
+          </h2>
+          <p style={{ margin: 0, color: "#666", fontSize: "14px" }}>
+            Explore your network by clicking on <TermDefinition term="neuron">neurons</TermDefinition> to see their <TermDefinition term="connection">connections</TermDefinition>
+          </p>
+        </div>
+        <InfoPanel
+          title="How to Use the Network Visualization"
+          content={
+            <div>
+              <p style={{ marginTop: 0 }}>
+                <strong>Understanding the Visualization:</strong>
+              </p>
+              <ul style={{ paddingLeft: "20px", margin: "8px 0" }}>
+                <li><strong>Circles</strong> represent <TermDefinition term="neuron">neurons</TermDefinition> (nodes) in the network</li>
+                <li><strong>Lines</strong> represent <TermDefinition term="edge">edges</TermDefinition> (connections) between neurons</li>
+                <li><strong>Blue nodes</strong> are normal neurons</li>
+                <li><strong>Red nodes</strong> are selected neurons</li>
+                <li><strong>Orange nodes</strong> are connected to the selected neuron</li>
+              </ul>
+
+              <p>
+                <strong>Interactions:</strong>
+              </p>
+              <ul style={{ paddingLeft: "20px", margin: "8px 0" }}>
+                <li><strong>Click a neuron</strong> to highlight it and see all its connections</li>
+                <li><strong>Click again</strong> to deselect and see the full network</li>
+                <li><strong>Hover over neurons</strong> to see their IDs</li>
+                <li><strong>Scroll to zoom</strong> in and out of the network</li>
+                <li><strong>Click and drag</strong> to pan around the visualization</li>
+              </ul>
+
+              <div style={{ marginTop: "16px", padding: "12px", background: "#e8f4f8", borderRadius: "4px" }}>
+                <strong>💡 Interpreting Activation Values:</strong>
+                <p style={{ margin: "8px 0 0 0", fontSize: "13px" }}>
+                  <TermDefinition term="activation">Activation</TermDefinition> values tell you how strongly a <TermDefinition term="neuron">neuron</TermDefinition> responds to input. 
+                  Higher values (closer to 1) indicate stronger responses, while lower values (closer to 0) indicate weaker responses. 
+                  When you select a neuron, you're seeing how it connects to other parts of the network.
+                </p>
+              </div>
+
+              <div style={{ marginTop: "12px", padding: "12px", background: "#fff3cd", borderRadius: "4px" }}>
+                <strong>🎯 Best Practices:</strong>
+                <ul style={{ margin: "8px 0 0 0", paddingLeft: "20px", fontSize: "13px" }}>
+                  <li>Start by exploring the <TermDefinition term="input">input layer</TermDefinition> to understand data flow</li>
+                  <li>Follow connections through <TermDefinition term="hidden layer">hidden layers</TermDefinition> to see how information transforms</li>
+                  <li>Check the <TermDefinition term="output">output layer</TermDefinition> to see final predictions</li>
+                  <li>Look for patterns in how neurons connect - dense connections indicate important relationships</li>
+                </ul>
+              </div>
+
+              <div style={{ marginTop: "12px", padding: "12px", background: "#d4edda", borderRadius: "4px" }}>
+                <strong>📚 Key Terms:</strong>
+                <p style={{ margin: "8px 0 0 0", fontSize: "13px" }}>
+                  Click on any underlined term (like <TermDefinition term="activation">activation</TermDefinition> or <TermDefinition term="layer">layer</TermDefinition>) 
+                  throughout the interface to learn what it means in simple terms.
+                </p>
+              </div>
+            </div>
+          }
+          position="top-right"
+          size="large"
+        />
+      </div>
+
+      <div style={{ 
+        border: "1px solid #ddd", 
+        borderRadius: "8px", 
+        background: "white",
+        position: "relative",
+        width: "100%",
+        height: "calc(100% - 120px)",
+        minHeight: "600px"
+      }}>
+        {tooltip && (
+          <div
+            style={{
+              position: "fixed",
+              top: tooltip.y + 10,
+              left: tooltip.x + 10,
+              background: "white",
+              padding: "6px 10px",
+              borderRadius: "4px",
+              border: "1px solid #4a90e2",
+              fontSize: "12px",
+              pointerEvents: "none",
+              zIndex: 10,
+              boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+            }}
+          >
+            <strong>Neuron:</strong> {tooltip.text}
+          </div>
+        )}
+
+        <svg 
+          ref={ref} 
+          viewBox="0 0 900 600" 
+          preserveAspectRatio="xMidYMid meet"
+          style={{ display: "block", width: "100%", height: "100%" }} 
+        />
+      </div>
+
+      {selected && (
+        <div style={{
+          marginTop: "16px",
+          padding: "12px",
+          background: "#f0f7ff",
+          border: "1px solid #4a90e2",
+          borderRadius: "4px",
+          fontSize: "14px"
+        }}>
+          <strong>Selected:</strong> {selected}
+          <p style={{ margin: "8px 0 0 0", fontSize: "13px", color: "#666" }}>
+            This <TermDefinition term="neuron">neuron</TermDefinition> is connected to other neurons through <TermDefinition term="edge">edges</TermDefinition>. 
+            The highlighted connections show how information flows from this neuron to others in the network.
+          </p>
         </div>
       )}
-
-      <svg ref={ref} width={900} height={600} />
     </div>
   );
 }
