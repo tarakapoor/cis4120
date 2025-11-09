@@ -207,11 +207,11 @@
       });
     }
   }
-})({"7krbH":[function(require,module,exports,__globalThis) {
+})({"7KwkS":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
-var HMR_SERVER_PORT = 49685;
+var HMR_SERVER_PORT = 1234;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "439701173a9199ea";
 var HMR_USE_SSE = false;
@@ -28726,7 +28726,7 @@ $RefreshReg$(_c, "TermDefinition");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../../data/glossary":"iV0cQ","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","react-dom":"i4X7T"}],"iV0cQ":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-dom":"i4X7T","../../data/glossary":"iV0cQ","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"iV0cQ":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "glossary", ()=>glossary);
@@ -29940,7 +29940,7 @@ $RefreshReg$(_c, "NetworkGraph");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","d3":"eyk9f","../UI/InfoPanel":"935um","../UI/TermDefinition":"juwMD","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","../../utils/modelUtils":"7lMAx","./WeightAdjustmentPanel":"6JgLQ"}],"eyk9f":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","d3":"eyk9f","../UI/InfoPanel":"935um","../UI/TermDefinition":"juwMD","./WeightAdjustmentPanel":"6JgLQ","../../utils/modelUtils":"7lMAx","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"eyk9f":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _d3Array = require("d3-array");
@@ -53315,108 +53315,6 @@ function nopropagation(event) {
     event.stopImmediatePropagation();
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"7lMAx":[function(require,module,exports,__globalThis) {
-/**
- * Utility functions for managing neural network models and weights
- */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-/**
- * Initialize weights for a model if they don't exist
- * Generates random weights between -1 and 1 for all connections
- */ parcelHelpers.export(exports, "initializeWeights", ()=>initializeWeights);
-/**
- * Get weight between two nodes
- */ parcelHelpers.export(exports, "getWeight", ()=>getWeight);
-/**
- * Update weight between two nodes
- */ parcelHelpers.export(exports, "updateWeight", ()=>updateWeight);
-/**
- * Get all outgoing weights from a node
- */ parcelHelpers.export(exports, "getOutgoingWeights", ()=>getOutgoingWeights);
-/**
- * Normalize weight to a visual representation (0-1 scale for opacity/thickness)
- */ parcelHelpers.export(exports, "normalizeWeight", ()=>normalizeWeight);
-/**
- * Get color for weight (blue for positive, red for negative)
- */ parcelHelpers.export(exports, "getWeightColor", ()=>getWeightColor);
-/**
- * Get stroke width for weight visualization
- */ parcelHelpers.export(exports, "getWeightStrokeWidth", ()=>getWeightStrokeWidth);
-function initializeWeights(model) {
-    if (!model || !model.layers) return model;
-    // If weights already exist, return as-is
-    if (model.weights && Array.isArray(model.weights)) return model;
-    const layers = model.layers;
-    const weights = [];
-    // Generate weights for connections between layers
-    for(let layerIdx = 0; layerIdx < layers.length - 1; layerIdx++){
-        const currentLayerSize = layers[layerIdx].size;
-        const nextLayerSize = layers[layerIdx + 1].size;
-        for(let i = 0; i < currentLayerSize; i++)for(let j = 0; j < nextLayerSize; j++){
-            const sourceId = `L${layerIdx}-N${i}`;
-            const targetId = `L${layerIdx + 1}-N${j}`;
-            // Initialize with random weights between -1 and 1
-            const weight = (Math.random() * 2 - 1) * 0.5; // Scale to -0.5 to 0.5 for better visualization
-            weights.push({
-                sourceId,
-                targetId,
-                weight
-            });
-        }
-    }
-    return {
-        ...model,
-        weights
-    };
-}
-function getWeight(weights, sourceId, targetId) {
-    if (!weights) return 0;
-    const weightData = weights.find((w)=>w.sourceId === sourceId && w.targetId === targetId);
-    return weightData ? weightData.weight : 0;
-}
-function updateWeight(weights, sourceId, targetId, newWeight) {
-    if (!weights) return [];
-    const updated = weights.map((w)=>w.sourceId === sourceId && w.targetId === targetId ? {
-            ...w,
-            weight: newWeight
-        } : w);
-    // If weight didn't exist, add it
-    const exists = weights.some((w)=>w.sourceId === sourceId && w.targetId === targetId);
-    if (!exists) updated.push({
-        sourceId,
-        targetId,
-        weight: newWeight
-    });
-    return updated;
-}
-function getOutgoingWeights(weights, sourceId) {
-    if (!weights) return [];
-    return weights.filter((w)=>w.sourceId === sourceId);
-}
-function normalizeWeight(weight) {
-    // Map weight from range [-1, 1] to [0, 1] for visualization
-    return (weight + 1) / 2;
-}
-function getWeightColor(weight, opacity = 1) {
-    const clampedOpacity = Math.max(0, Math.min(1, opacity));
-    if (weight > 0) {
-        // Positive weights: shades of blue (brighter for larger weights)
-        const intensity = Math.min(Math.abs(weight), 1);
-        const alpha = 0.4 + intensity * 0.6; // Range from 0.4 to 1.0
-        return `rgba(74, 144, 226, ${alpha * clampedOpacity})`;
-    } else if (weight < 0) {
-        // Negative weights: shades of red (brighter for larger absolute values)
-        const intensity = Math.min(Math.abs(weight), 1);
-        const alpha = 0.4 + intensity * 0.6; // Range from 0.4 to 1.0
-        return `rgba(255, 65, 54, ${alpha * clampedOpacity})`;
-    } else return `rgba(170, 170, 170, ${0.5 * clampedOpacity})`;
-}
-function getWeightStrokeWidth(weight, baseWidth = 1.2) {
-    const absWeight = Math.abs(weight);
-    // Scale from 1.2 to 5 based on weight magnitude
-    return baseWidth + absWeight * 3.8;
-}
-
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"6JgLQ":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$79b4 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 $parcel$ReactRefreshHelpers$79b4.init();
@@ -54384,6 +54282,108 @@ $RefreshReg$(_c, "WeightAdjustmentPanel");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../UI/TermDefinition":"juwMD","../UI/InfoPanel":"935um","../../utils/modelUtils":"7lMAx","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}]},["7krbH","4dmnR"], "4dmnR", "parcelRequire1531", {}, null, null, "http://localhost:49685")
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../UI/TermDefinition":"juwMD","../UI/InfoPanel":"935um","../../utils/modelUtils":"7lMAx","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"7lMAx":[function(require,module,exports,__globalThis) {
+/**
+ * Utility functions for managing neural network models and weights
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * Initialize weights for a model if they don't exist
+ * Generates random weights between -1 and 1 for all connections
+ */ parcelHelpers.export(exports, "initializeWeights", ()=>initializeWeights);
+/**
+ * Get weight between two nodes
+ */ parcelHelpers.export(exports, "getWeight", ()=>getWeight);
+/**
+ * Update weight between two nodes
+ */ parcelHelpers.export(exports, "updateWeight", ()=>updateWeight);
+/**
+ * Get all outgoing weights from a node
+ */ parcelHelpers.export(exports, "getOutgoingWeights", ()=>getOutgoingWeights);
+/**
+ * Normalize weight to a visual representation (0-1 scale for opacity/thickness)
+ */ parcelHelpers.export(exports, "normalizeWeight", ()=>normalizeWeight);
+/**
+ * Get color for weight (blue for positive, red for negative)
+ */ parcelHelpers.export(exports, "getWeightColor", ()=>getWeightColor);
+/**
+ * Get stroke width for weight visualization
+ */ parcelHelpers.export(exports, "getWeightStrokeWidth", ()=>getWeightStrokeWidth);
+function initializeWeights(model) {
+    if (!model || !model.layers) return model;
+    // If weights already exist, return as-is
+    if (model.weights && Array.isArray(model.weights)) return model;
+    const layers = model.layers;
+    const weights = [];
+    // Generate weights for connections between layers
+    for(let layerIdx = 0; layerIdx < layers.length - 1; layerIdx++){
+        const currentLayerSize = layers[layerIdx].size;
+        const nextLayerSize = layers[layerIdx + 1].size;
+        for(let i = 0; i < currentLayerSize; i++)for(let j = 0; j < nextLayerSize; j++){
+            const sourceId = `L${layerIdx}-N${i}`;
+            const targetId = `L${layerIdx + 1}-N${j}`;
+            // Initialize with random weights between -1 and 1
+            const weight = (Math.random() * 2 - 1) * 0.5; // Scale to -0.5 to 0.5 for better visualization
+            weights.push({
+                sourceId,
+                targetId,
+                weight
+            });
+        }
+    }
+    return {
+        ...model,
+        weights
+    };
+}
+function getWeight(weights, sourceId, targetId) {
+    if (!weights) return 0;
+    const weightData = weights.find((w)=>w.sourceId === sourceId && w.targetId === targetId);
+    return weightData ? weightData.weight : 0;
+}
+function updateWeight(weights, sourceId, targetId, newWeight) {
+    if (!weights) return [];
+    const updated = weights.map((w)=>w.sourceId === sourceId && w.targetId === targetId ? {
+            ...w,
+            weight: newWeight
+        } : w);
+    // If weight didn't exist, add it
+    const exists = weights.some((w)=>w.sourceId === sourceId && w.targetId === targetId);
+    if (!exists) updated.push({
+        sourceId,
+        targetId,
+        weight: newWeight
+    });
+    return updated;
+}
+function getOutgoingWeights(weights, sourceId) {
+    if (!weights) return [];
+    return weights.filter((w)=>w.sourceId === sourceId);
+}
+function normalizeWeight(weight) {
+    // Map weight from range [-1, 1] to [0, 1] for visualization
+    return (weight + 1) / 2;
+}
+function getWeightColor(weight, opacity = 1) {
+    const clampedOpacity = Math.max(0, Math.min(1, opacity));
+    if (weight > 0) {
+        // Positive weights: shades of blue (brighter for larger weights)
+        const intensity = Math.min(Math.abs(weight), 1);
+        const alpha = 0.4 + intensity * 0.6; // Range from 0.4 to 1.0
+        return `rgba(74, 144, 226, ${alpha * clampedOpacity})`;
+    } else if (weight < 0) {
+        // Negative weights: shades of red (brighter for larger absolute values)
+        const intensity = Math.min(Math.abs(weight), 1);
+        const alpha = 0.4 + intensity * 0.6; // Range from 0.4 to 1.0
+        return `rgba(255, 65, 54, ${alpha * clampedOpacity})`;
+    } else return `rgba(170, 170, 170, ${0.5 * clampedOpacity})`;
+}
+function getWeightStrokeWidth(weight, baseWidth = 1.2) {
+    const absWeight = Math.abs(weight);
+    // Scale from 1.2 to 5 based on weight magnitude
+    return baseWidth + absWeight * 3.8;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["7KwkS","4dmnR"], "4dmnR", "parcelRequire1531", {}, null, null, "http://localhost:1234")
 
 //# sourceMappingURL=cis4120.6efbc4f8.js.map
