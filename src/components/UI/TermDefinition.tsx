@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import { getDefinition } from "../../data/glossary";
 
 interface TermDefinitionProps {
@@ -45,7 +46,7 @@ export default function TermDefinition({ term, children, style }: TermDefinition
         {children || term}
       </span>
 
-      {isOpen && position && (
+      {isOpen && position && typeof document !== 'undefined' && createPortal(
         <>
           {/* Backdrop to close on click outside */}
           <div
@@ -99,14 +100,14 @@ export default function TermDefinition({ term, children, style }: TermDefinition
               </button>
             </div>
             
-            <p style={{ margin: "8px 0", color: "#333" }}>{definition.definition}</p>
+            <div style={{ margin: "8px 0", color: "#333" }}>{definition.definition}</div>
             
             {definition.example && (
               <div style={{ marginTop: "12px", padding: "8px", background: "#f5f5f5", borderRadius: "4px" }}>
                 <strong style={{ fontSize: "12px", color: "#666" }}>Example:</strong>
-                <p style={{ margin: "4px 0 0 0", fontSize: "13px", color: "#555", fontStyle: "italic" }}>
+                <div style={{ margin: "4px 0 0 0", fontSize: "13px", color: "#555", fontStyle: "italic" }}>
                   {definition.example}
-                </p>
+                </div>
               </div>
             )}
 
@@ -119,7 +120,8 @@ export default function TermDefinition({ term, children, style }: TermDefinition
               </div>
             )}
           </div>
-        </>
+        </>,
+        document.body
       )}
     </>
   );

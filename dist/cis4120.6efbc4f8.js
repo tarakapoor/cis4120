@@ -207,11 +207,11 @@
       });
     }
   }
-})({"7KwkS":[function(require,module,exports,__globalThis) {
+})({"7krbH":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
-var HMR_SERVER_PORT = 1234;
+var HMR_SERVER_PORT = 49685;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "439701173a9199ea";
 var HMR_USE_SSE = false;
@@ -28497,6 +28497,7 @@ parcelHelpers.export(exports, "default", ()=>TermDefinition);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactDom = require("react-dom");
 var _glossary = require("../../data/glossary");
 var _s = $RefreshSig$();
 function TermDefinition({ term, children, style }) {
@@ -28510,7 +28511,7 @@ function TermDefinition({ term, children, style }) {
         children: children || term
     }, void 0, false, {
         fileName: "src/components/UI/TermDefinition.tsx",
-        lineNumber: 17,
+        lineNumber: 18,
         columnNumber: 12
     }, this);
     const handleClick = (e)=>{
@@ -28541,10 +28542,10 @@ function TermDefinition({ term, children, style }) {
                 children: children || term
             }, void 0, false, {
                 fileName: "src/components/UI/TermDefinition.tsx",
-                lineNumber: 34,
+                lineNumber: 35,
                 columnNumber: 7
             }, this),
-            isOpen && position && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+            isOpen && position && typeof document !== 'undefined' && /*#__PURE__*/ (0, _reactDom.createPortal)(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                         style: {
@@ -28559,7 +28560,7 @@ function TermDefinition({ term, children, style }) {
                         onClick: handleClose
                     }, void 0, false, {
                         fileName: "src/components/UI/TermDefinition.tsx",
-                        lineNumber: 51,
+                        lineNumber: 52,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -28595,7 +28596,7 @@ function TermDefinition({ term, children, style }) {
                                         children: definition.term
                                     }, void 0, false, {
                                         fileName: "src/components/UI/TermDefinition.tsx",
-                                        lineNumber: 83,
+                                        lineNumber: 84,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -28614,16 +28615,16 @@ function TermDefinition({ term, children, style }) {
                                         children: "\xd7"
                                     }, void 0, false, {
                                         fileName: "src/components/UI/TermDefinition.tsx",
-                                        lineNumber: 84,
+                                        lineNumber: 85,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/UI/TermDefinition.tsx",
-                                lineNumber: 82,
+                                lineNumber: 83,
                                 columnNumber: 13
                             }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                 style: {
                                     margin: "8px 0",
                                     color: "#333"
@@ -28631,7 +28632,7 @@ function TermDefinition({ term, children, style }) {
                                 children: definition.definition
                             }, void 0, false, {
                                 fileName: "src/components/UI/TermDefinition.tsx",
-                                lineNumber: 102,
+                                lineNumber: 103,
                                 columnNumber: 13
                             }, this),
                             definition.example && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -28650,10 +28651,10 @@ function TermDefinition({ term, children, style }) {
                                         children: "Example:"
                                     }, void 0, false, {
                                         fileName: "src/components/UI/TermDefinition.tsx",
-                                        lineNumber: 106,
+                                        lineNumber: 107,
                                         columnNumber: 17
                                     }, this),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                         style: {
                                             margin: "4px 0 0 0",
                                             fontSize: "13px",
@@ -28663,13 +28664,13 @@ function TermDefinition({ term, children, style }) {
                                         children: definition.example
                                     }, void 0, false, {
                                         fileName: "src/components/UI/TermDefinition.tsx",
-                                        lineNumber: 107,
+                                        lineNumber: 108,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/UI/TermDefinition.tsx",
-                                lineNumber: 105,
+                                lineNumber: 106,
                                 columnNumber: 15
                             }, this),
                             definition.relatedTerms && definition.relatedTerms.length > 0 && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -28685,7 +28686,7 @@ function TermDefinition({ term, children, style }) {
                                         children: "Related terms: "
                                     }, void 0, false, {
                                         fileName: "src/components/UI/TermDefinition.tsx",
-                                        lineNumber: 115,
+                                        lineNumber: 116,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
@@ -28695,23 +28696,23 @@ function TermDefinition({ term, children, style }) {
                                         children: definition.relatedTerms.join(", ")
                                     }, void 0, false, {
                                         fileName: "src/components/UI/TermDefinition.tsx",
-                                        lineNumber: 116,
+                                        lineNumber: 117,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/UI/TermDefinition.tsx",
-                                lineNumber: 114,
+                                lineNumber: 115,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/UI/TermDefinition.tsx",
-                        lineNumber: 65,
+                        lineNumber: 66,
                         columnNumber: 11
                     }, this)
                 ]
-            }, void 0, true)
+            }, void 0, true), document.body)
         ]
     }, void 0, true);
 }
@@ -28725,7 +28726,7 @@ $RefreshReg$(_c, "TermDefinition");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../../data/glossary":"iV0cQ","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"iV0cQ":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../../data/glossary":"iV0cQ","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","react-dom":"i4X7T"}],"iV0cQ":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "glossary", ()=>glossary);
@@ -28892,6 +28893,26 @@ const glossary = {
             "learning",
             "network"
         ]
+    },
+    steering: {
+        term: "steering",
+        definition: "The act of manually adjusting a neural network's behavior by changing its weights. By modifying weights, you can guide or 'steer' the network toward different outputs or behaviors, like adjusting how a robot makes decisions.",
+        example: "If a robot turns too sharply, you can steer it by reducing the weights that cause sharp turns, making it turn more gently.",
+        relatedTerms: [
+            "weight",
+            "policy",
+            "adjustment"
+        ]
+    },
+    perturbation: {
+        term: "perturbation",
+        definition: "A small change or adjustment made to the network's parameters (like weights) to see how it affects the network's behavior. It's like giving the network a gentle nudge to see how it reacts.",
+        example: "Making a small perturbation to a weight (like changing it from 0.5 to 0.6) lets you see how that small change affects what the network decides.",
+        relatedTerms: [
+            "weight",
+            "adjustment",
+            "steering"
+        ]
     }
 };
 function getDefinition(term) {
@@ -28981,14 +29002,39 @@ var _infoPanel = require("../UI/InfoPanel");
 var _infoPanelDefault = parcelHelpers.interopDefault(_infoPanel);
 var _termDefinition = require("../UI/TermDefinition");
 var _termDefinitionDefault = parcelHelpers.interopDefault(_termDefinition);
+var _weightAdjustmentPanel = require("./WeightAdjustmentPanel");
+var _weightAdjustmentPanelDefault = parcelHelpers.interopDefault(_weightAdjustmentPanel);
+var _modelUtils = require("../../utils/modelUtils");
 var _s = $RefreshSig$();
 function NetworkGraph({ model }) {
     _s();
     const ref = (0, _react.useRef)(null);
     const [selected, setSelected] = (0, _react.useState)(null);
     const [tooltip, setTooltip] = (0, _react.useState)(null);
+    // Initialize model with weights and store in state
+    const [modelWithWeights, setModelWithWeights] = (0, _react.useState)(null);
+    const [originalWeights, setOriginalWeights] = (0, _react.useState)([]);
+    // Initialize weights when model changes
     (0, _react.useEffect)(()=>{
-        if (!model || !model.layers) return;
+        if (model) {
+            const initialized = (0, _modelUtils.initializeWeights)(model);
+            setModelWithWeights(initialized);
+            // Store original weights for comparison
+            setOriginalWeights(initialized.weights ? [
+                ...initialized.weights
+            ] : []);
+        }
+    }, [
+        model
+    ]);
+    const handleWeightChange = (newWeights)=>{
+        if (modelWithWeights) setModelWithWeights({
+            ...modelWithWeights,
+            weights: newWeights
+        });
+    };
+    (0, _react.useEffect)(()=>{
+        if (!modelWithWeights || !modelWithWeights.layers) return;
         const svg = _d3.select(ref.current);
         svg.selectAll("*").remove();
         // Get SVG dimensions from its container
@@ -28997,7 +29043,8 @@ function NetworkGraph({ model }) {
         // Use fixed dimensions for calculation, SVG will scale via CSS
         const width = 900;
         const height = 600;
-        const layers = model.layers;
+        const layers = modelWithWeights.layers;
+        const weights = modelWithWeights.weights || [];
         const layerSpacing = width / (layers.length + 1);
         const nodes = [];
         const links = [];
@@ -29011,13 +29058,16 @@ function NetworkGraph({ model }) {
                 y: (i + 1) * ySpacing
             });
         });
-        // Build edges
+        // Build edges with weights
         nodes.forEach((n)=>{
             const layer = n.layer;
             if (layer < layers.length - 1) nodes.filter((m)=>m.layer === layer + 1).forEach((next)=>{
+                const weight = (0, _modelUtils.getWeight)(weights, n.id, next.id);
                 links.push({
                     source: n,
-                    target: next
+                    target: next,
+                    weight: weight,
+                    id: `${n.id}-${next.id}`
                 });
             });
         });
@@ -29028,7 +29078,24 @@ function NetworkGraph({ model }) {
         });
         svg.call(zoom);
         // --- DRAW LINKS ---
-        const linkElems = g.selectAll("line").data(links).enter().append("line").attr("x1", (d)=>d.source.x).attr("y1", (d)=>d.source.y).attr("x2", (d)=>d.target.x).attr("y2", (d)=>d.target.y).attr("stroke", "#aaa").attr("stroke-width", 1.2).attr("opacity", 0.7);
+        const linkElems = g.selectAll("line").data(links).enter().append("line").attr("x1", (d)=>d.source.x).attr("y1", (d)=>d.source.y).attr("x2", (d)=>d.target.x).attr("y2", (d)=>d.target.y).attr("stroke", (d)=>{
+            // Use weight-based coloring
+            if (selected && (d.source.id === selected || d.target.id === selected)) return (0, _modelUtils.getWeightColor)(d.weight);
+            // For non-selected edges, use weight-based color but extract RGB and set lower opacity
+            if (d.weight > 0) return "rgba(74, 144, 226, 0.3)";
+            else if (d.weight < 0) return "rgba(255, 65, 54, 0.3)";
+            else return "rgba(170, 170, 170, 0.3)";
+        }).attr("stroke-width", (d)=>{
+            // Use weight-based thickness
+            if (selected && (d.source.id === selected || d.target.id === selected)) return (0, _modelUtils.getWeightStrokeWidth)(d.weight);
+            // For non-selected edges, use thinner lines
+            return Math.max(0.5, (0, _modelUtils.getWeightStrokeWidth)(d.weight) * 0.3);
+        }).attr("opacity", (d)=>{
+            if (selected) return d.source.id === selected || d.target.id === selected ? 1 : 0.1;
+            // Show all edges when nothing is selected, but with lower opacity based on weight
+            const absWeight = Math.abs(d.weight);
+            return 0.3 + absWeight * 0.4; // Opacity from 0.3 to 0.7 based on weight magnitude
+        });
         // --- DRAW NODES ---
         const nodeElems = g.selectAll("circle").data(nodes).enter().append("circle").attr("cx", (d)=>d.x).attr("cy", (d)=>d.y).attr("r", 11).attr("fill", "#4a90e2").style("cursor", "pointer")// Tooltip
         .on("mouseenter", (event, d)=>{
@@ -29066,668 +29133,804 @@ function NetworkGraph({ model }) {
                  : connectedNodeIds.has(d.id) ? "#ff9f43" // connected = orange
                  : "#4a90e2" // others = blue
             ).attr("opacity", (d)=>connectedNodeIds.has(d.id) ? 1 : 0.25);
-            // Highlight edges
-            linkElems.attr("stroke", (d)=>d.source.id === selected || d.target.id === selected ? "#ff4136" : "#aaa").attr("stroke-width", (d)=>d.source.id === selected || d.target.id === selected ? 3 : 1).attr("opacity", (d)=>d.source.id === selected || d.target.id === selected ? 1 : 0.1);
+            // Highlight edges with weight-based visualization
+            linkElems.attr("stroke", (d)=>{
+                if (d.source.id === selected || d.target.id === selected) return (0, _modelUtils.getWeightColor)(d.weight);
+                return "rgba(170, 170, 170, 0.3)";
+            }).attr("stroke-width", (d)=>{
+                if (d.source.id === selected || d.target.id === selected) return (0, _modelUtils.getWeightStrokeWidth)(d.weight);
+                return Math.max(0.5, (0, _modelUtils.getWeightStrokeWidth)(d.weight) * 0.3);
+            }).attr("opacity", (d)=>{
+                if (d.source.id === selected || d.target.id === selected) return 1;
+                return 0.1;
+            });
         };
         updateHighlight();
     }, [
-        model,
+        modelWithWeights,
         selected
     ]);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         style: {
-            position: "relative",
+            display: "flex",
             width: "100%",
             height: "100%",
-            padding: "20px"
+            overflow: "hidden"
         },
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 style: {
-                    marginBottom: "16px",
+                    flex: 1,
                     display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start"
+                    flexDirection: "column",
+                    padding: "20px"
                 },
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        style: {
+                            marginBottom: "16px",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "flex-start"
+                        },
                         children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                style: {
-                                    margin: "0 0 8px 0",
-                                    fontSize: "24px"
-                                },
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                 children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                        term: "neural network",
-                                        children: "Neural Network"
-                                    }, void 0, false, {
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                                        style: {
+                                            margin: "0 0 8px 0",
+                                            fontSize: "24px"
+                                        },
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                term: "neural network",
+                                                children: "Neural Network"
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                lineNumber: 313,
+                                                columnNumber: 15
+                                            }, this),
+                                            " Visualization"
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                        lineNumber: 237,
+                                        lineNumber: 312,
                                         columnNumber: 13
                                     }, this),
-                                    " Visualization"
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                lineNumber: 236,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                style: {
-                                    margin: 0,
-                                    color: "#666",
-                                    fontSize: "14px"
-                                },
-                                children: [
-                                    "Explore your network by clicking on ",
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                        term: "neuron",
-                                        children: "neurons"
-                                    }, void 0, false, {
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                        style: {
+                                            margin: 0,
+                                            color: "#666",
+                                            fontSize: "14px"
+                                        },
+                                        children: [
+                                            "Click on ",
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                term: "neuron",
+                                                children: "neurons"
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                lineNumber: 316,
+                                                columnNumber: 24
+                                            }, this),
+                                            " to adjust ",
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                term: "weight",
+                                                children: "weights"
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                lineNumber: 316,
+                                                columnNumber: 89
+                                            }, this),
+                                            " and steer the ",
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                term: "policy",
+                                                children: "policy"
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                lineNumber: 316,
+                                                columnNumber: 158
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                        lineNumber: 240,
-                                        columnNumber: 49
-                                    }, this),
-                                    " to see their ",
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                        term: "connection",
-                                        children: "connections"
-                                    }, void 0, false, {
-                                        fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                        lineNumber: 240,
-                                        columnNumber: 117
+                                        lineNumber: 315,
+                                        columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                lineNumber: 239,
+                                lineNumber: 311,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _infoPanelDefault.default), {
+                                title: "How to Use the Network Visualization & Weight Adjustment",
+                                content: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                            style: {
+                                                marginTop: 0
+                                            },
+                                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                children: "Understanding the Visualization:"
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                lineNumber: 324,
+                                                columnNumber: 17
+                                            }, void 0)
+                                        }, void 0, false, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                            lineNumber: 323,
+                                            columnNumber: 15
+                                        }, void 0),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
+                                            style: {
+                                                paddingLeft: "20px",
+                                                margin: "8px 0"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "Circles"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 327,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        " represent ",
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                            term: "neuron",
+                                                            children: "neurons"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 327,
+                                                            columnNumber: 56
+                                                        }, void 0),
+                                                        " (nodes) in the network"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 327,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "Lines"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 328,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        " represent ",
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                            term: "edge",
+                                                            children: "edges"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 328,
+                                                            columnNumber: 54
+                                                        }, void 0),
+                                                        " (connections) with ",
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                            term: "weight",
+                                                            children: "weights"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 328,
+                                                            columnNumber: 124
+                                                        }, void 0)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 328,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "Blue edges"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 329,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        " = positive weights (strengthen connections)"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 329,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "Red edges"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 330,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        " = negative weights (weaken/invert connections)"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 330,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "Thicker edges"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 331,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        " = stronger ",
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                            term: "weight",
+                                                            children: "weights"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 331,
+                                                            columnNumber: 63
+                                                        }, void 0)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 331,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "Red nodes"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 332,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        " are selected neurons"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 332,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "Orange nodes"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 333,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        " are connected to the selected neuron"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 333,
+                                                    columnNumber: 17
+                                                }, void 0)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                            lineNumber: 326,
+                                            columnNumber: 15
+                                        }, void 0),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                children: "Interactions:"
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                lineNumber: 337,
+                                                columnNumber: 17
+                                            }, void 0)
+                                        }, void 0, false, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                            lineNumber: 336,
+                                            columnNumber: 15
+                                        }, void 0),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
+                                            style: {
+                                                paddingLeft: "20px",
+                                                margin: "8px 0"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "Click a neuron"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 340,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        " to select it and open the weight adjustment panel"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 340,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "Adjust weights"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 341,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        " using sliders in the right panel to ",
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                            term: "steering",
+                                                            children: "steer"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 341,
+                                                            columnNumber: 89
+                                                        }, void 0),
+                                                        " the ",
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                            term: "policy",
+                                                            children: "policy"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 341,
+                                                            columnNumber: 148
+                                                        }, void 0)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 341,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "Watch edges update"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 342,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        " in real-time as you change weights"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 342,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "Compare before/after"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 343,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        " values to see your changes"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 343,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "Hover over neurons"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 344,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        " to see their IDs"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 344,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "Scroll to zoom"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 345,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        " and ",
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                            children: "drag to pan"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 345,
+                                                            columnNumber: 57
+                                                        }, void 0),
+                                                        " the visualization"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 345,
+                                                    columnNumber: 17
+                                                }, void 0)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                            lineNumber: 339,
+                                            columnNumber: 15
+                                        }, void 0),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            style: {
+                                                marginTop: "16px",
+                                                padding: "12px",
+                                                background: "#e8f4f8",
+                                                borderRadius: "4px"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                    children: "\uD83D\uDCA1 Steering the Policy:"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 349,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                                    style: {
+                                                        margin: "8px 0 0 0",
+                                                        fontSize: "13px"
+                                                    },
+                                                    children: [
+                                                        "By adjusting ",
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                            term: "weight",
+                                                            children: "weights"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 351,
+                                                            columnNumber: 32
+                                                        }, void 0),
+                                                        ", you can ",
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                            term: "steering",
+                                                            children: "steer"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 351,
+                                                            columnNumber: 96
+                                                        }, void 0),
+                                                        " how the network behaves. This is called ",
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                            term: "perturbation",
+                                                            children: "perturbation"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 352,
+                                                            columnNumber: 34
+                                                        }, void 0),
+                                                        " - making small changes to see how they affect the network's decisions. Positive weights strengthen connections, while negative weights weaken them."
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 350,
+                                                    columnNumber: 17
+                                                }, void 0)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                            lineNumber: 348,
+                                            columnNumber: 15
+                                        }, void 0),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            style: {
+                                                marginTop: "12px",
+                                                padding: "12px",
+                                                background: "#fff3cd",
+                                                borderRadius: "4px"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                    children: "\uD83C\uDFAF Best Practices for Weight Adjustment:"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 358,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
+                                                    style: {
+                                                        margin: "8px 0 0 0",
+                                                        paddingLeft: "20px",
+                                                        fontSize: "13px"
+                                                    },
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                            children: [
+                                                                "Start with small ",
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                                    term: "perturbation",
+                                                                    children: "perturbations"
+                                                                }, void 0, false, {
+                                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                                    lineNumber: 360,
+                                                                    columnNumber: 40
+                                                                }, void 0),
+                                                                " to see gradual effects"
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 360,
+                                                            columnNumber: 19
+                                                        }, void 0),
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                            children: "Watch how edge thickness and color change as you adjust weights"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 361,
+                                                            columnNumber: 19
+                                                        }, void 0),
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                            children: 'Use the "Before/After" comparison to track your changes'
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 362,
+                                                            columnNumber: 19
+                                                        }, void 0),
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                            children: "Reset weights if you want to start over"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 363,
+                                                            columnNumber: 19
+                                                        }, void 0),
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                            children: "Experiment with different neurons to understand their roles"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 364,
+                                                            columnNumber: 19
+                                                        }, void 0)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 359,
+                                                    columnNumber: 17
+                                                }, void 0)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                            lineNumber: 357,
+                                            columnNumber: 15
+                                        }, void 0),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            style: {
+                                                marginTop: "12px",
+                                                padding: "12px",
+                                                background: "#d4edda",
+                                                borderRadius: "4px"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                    children: "\uD83D\uDCDA Key Terms:"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 369,
+                                                    columnNumber: 17
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                                    style: {
+                                                        margin: "8px 0 0 0",
+                                                        fontSize: "13px"
+                                                    },
+                                                    children: [
+                                                        "Click on any underlined term (like ",
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                            term: "weight",
+                                                            children: "weight"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 371,
+                                                            columnNumber: 54
+                                                        }, void 0),
+                                                        ", ",
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                            term: "steering",
+                                                            children: "steering"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 371,
+                                                            columnNumber: 109
+                                                        }, void 0),
+                                                        ", or ",
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                            term: "policy",
+                                                            children: "policy"
+                                                        }, void 0, false, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                            lineNumber: 371,
+                                                            columnNumber: 171
+                                                        }, void 0),
+                                                        ") throughout the interface to learn what it means in simple terms."
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                                    lineNumber: 370,
+                                                    columnNumber: 17
+                                                }, void 0)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                            lineNumber: 368,
+                                            columnNumber: 15
+                                        }, void 0)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                    lineNumber: 322,
+                                    columnNumber: 13
+                                }, void 0),
+                                position: "top-right",
+                                size: "large"
+                            }, void 0, false, {
+                                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                lineNumber: 319,
+                                columnNumber: 9
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                        lineNumber: 310,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        style: {
+                            border: "1px solid #ddd",
+                            borderRadius: "8px",
+                            background: "white",
+                            position: "relative",
+                            width: "100%",
+                            flex: 1,
+                            minHeight: "600px",
+                            overflow: "hidden"
+                        },
+                        children: [
+                            tooltip && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                style: {
+                                    position: "fixed",
+                                    top: tooltip.y + 10,
+                                    left: tooltip.x + 10,
+                                    background: "white",
+                                    padding: "6px 10px",
+                                    borderRadius: "4px",
+                                    border: "1px solid #4a90e2",
+                                    fontSize: "12px",
+                                    pointerEvents: "none",
+                                    zIndex: 10,
+                                    boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+                                },
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                        children: "Neuron:"
+                                    }, void 0, false, {
+                                        fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                        lineNumber: 408,
+                                        columnNumber: 15
+                                    }, this),
+                                    " ",
+                                    tooltip.text
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                lineNumber: 393,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+                                ref: ref,
+                                viewBox: "0 0 900 600",
+                                preserveAspectRatio: "xMidYMid meet",
+                                style: {
+                                    display: "block",
+                                    width: "100%",
+                                    height: "100%"
+                                }
+                            }, void 0, false, {
+                                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                lineNumber: 412,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                        lineNumber: 235,
+                        lineNumber: 382,
                         columnNumber: 9
                     }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _infoPanelDefault.default), {
-                        title: "How to Use the Network Visualization",
-                        content: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                            children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                    style: {
-                                        marginTop: 0
-                                    },
-                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                        children: "Understanding the Visualization:"
-                                    }, void 0, false, {
-                                        fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                        lineNumber: 248,
-                                        columnNumber: 17
-                                    }, void 0)
-                                }, void 0, false, {
-                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                    lineNumber: 247,
-                                    columnNumber: 15
-                                }, void 0),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
-                                    style: {
-                                        paddingLeft: "20px",
-                                        margin: "8px 0"
-                                    },
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                                    children: "Circles"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 251,
-                                                    columnNumber: 21
-                                                }, void 0),
-                                                " represent ",
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                                    term: "neuron",
-                                                    children: "neurons"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 251,
-                                                    columnNumber: 56
-                                                }, void 0),
-                                                " (nodes) in the network"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 251,
-                                            columnNumber: 17
-                                        }, void 0),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                                    children: "Lines"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 252,
-                                                    columnNumber: 21
-                                                }, void 0),
-                                                " represent ",
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                                    term: "edge",
-                                                    children: "edges"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 252,
-                                                    columnNumber: 54
-                                                }, void 0),
-                                                " (connections) between neurons"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 252,
-                                            columnNumber: 17
-                                        }, void 0),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                                    children: "Blue nodes"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 253,
-                                                    columnNumber: 21
-                                                }, void 0),
-                                                " are normal neurons"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 253,
-                                            columnNumber: 17
-                                        }, void 0),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                                    children: "Red nodes"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 254,
-                                                    columnNumber: 21
-                                                }, void 0),
-                                                " are selected neurons"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 254,
-                                            columnNumber: 17
-                                        }, void 0),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                                    children: "Orange nodes"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 255,
-                                                    columnNumber: 21
-                                                }, void 0),
-                                                " are connected to the selected neuron"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 255,
-                                            columnNumber: 17
-                                        }, void 0)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                    lineNumber: 250,
-                                    columnNumber: 15
-                                }, void 0),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                        children: "Interactions:"
-                                    }, void 0, false, {
-                                        fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                        lineNumber: 259,
-                                        columnNumber: 17
-                                    }, void 0)
-                                }, void 0, false, {
-                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                    lineNumber: 258,
-                                    columnNumber: 15
-                                }, void 0),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
-                                    style: {
-                                        paddingLeft: "20px",
-                                        margin: "8px 0"
-                                    },
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                                    children: "Click a neuron"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 262,
-                                                    columnNumber: 21
-                                                }, void 0),
-                                                " to highlight it and see all its connections"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 262,
-                                            columnNumber: 17
-                                        }, void 0),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                                    children: "Click again"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 263,
-                                                    columnNumber: 21
-                                                }, void 0),
-                                                " to deselect and see the full network"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 263,
-                                            columnNumber: 17
-                                        }, void 0),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                                    children: "Hover over neurons"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 264,
-                                                    columnNumber: 21
-                                                }, void 0),
-                                                " to see their IDs"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 264,
-                                            columnNumber: 17
-                                        }, void 0),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                                    children: "Scroll to zoom"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 265,
-                                                    columnNumber: 21
-                                                }, void 0),
-                                                " in and out of the network"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 265,
-                                            columnNumber: 17
-                                        }, void 0),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                                    children: "Click and drag"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 266,
-                                                    columnNumber: 21
-                                                }, void 0),
-                                                " to pan around the visualization"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 266,
-                                            columnNumber: 17
-                                        }, void 0)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                    lineNumber: 261,
-                                    columnNumber: 15
-                                }, void 0),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                    style: {
-                                        marginTop: "16px",
-                                        padding: "12px",
-                                        background: "#e8f4f8",
-                                        borderRadius: "4px"
-                                    },
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                            children: "\uD83D\uDCA1 Interpreting Activation Values:"
-                                        }, void 0, false, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 270,
-                                            columnNumber: 17
-                                        }, void 0),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                            style: {
-                                                margin: "8px 0 0 0",
-                                                fontSize: "13px"
-                                            },
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                                    term: "activation",
-                                                    children: "Activation"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 272,
-                                                    columnNumber: 19
-                                                }, void 0),
-                                                " values tell you how strongly a ",
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                                    term: "neuron",
-                                                    children: "neuron"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 272,
-                                                    columnNumber: 112
-                                                }, void 0),
-                                                " responds to input. Higher values (closer to 1) indicate stronger responses, while lower values (closer to 0) indicate weaker responses. When you select a neuron, you're seeing how it connects to other parts of the network."
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 271,
-                                            columnNumber: 17
-                                        }, void 0)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                    lineNumber: 269,
-                                    columnNumber: 15
-                                }, void 0),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                    style: {
-                                        marginTop: "12px",
-                                        padding: "12px",
-                                        background: "#fff3cd",
-                                        borderRadius: "4px"
-                                    },
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                            children: "\uD83C\uDFAF Best Practices:"
-                                        }, void 0, false, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 279,
-                                            columnNumber: 17
-                                        }, void 0),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
-                                            style: {
-                                                margin: "8px 0 0 0",
-                                                paddingLeft: "20px",
-                                                fontSize: "13px"
-                                            },
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                                    children: [
-                                                        "Start by exploring the ",
-                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                                            term: "input",
-                                                            children: "input layer"
-                                                        }, void 0, false, {
-                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                            lineNumber: 281,
-                                                            columnNumber: 46
-                                                        }, void 0),
-                                                        " to understand data flow"
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 281,
-                                                    columnNumber: 19
-                                                }, void 0),
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                                    children: [
-                                                        "Follow connections through ",
-                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                                            term: "hidden layer",
-                                                            children: "hidden layers"
-                                                        }, void 0, false, {
-                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                            lineNumber: 282,
-                                                            columnNumber: 50
-                                                        }, void 0),
-                                                        " to see how information transforms"
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 282,
-                                                    columnNumber: 19
-                                                }, void 0),
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                                    children: [
-                                                        "Check the ",
-                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                                            term: "output",
-                                                            children: "output layer"
-                                                        }, void 0, false, {
-                                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                            lineNumber: 283,
-                                                            columnNumber: 33
-                                                        }, void 0),
-                                                        " to see final predictions"
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 283,
-                                                    columnNumber: 19
-                                                }, void 0),
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                                    children: "Look for patterns in how neurons connect - dense connections indicate important relationships"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 284,
-                                                    columnNumber: 19
-                                                }, void 0)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 280,
-                                            columnNumber: 17
-                                        }, void 0)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                    lineNumber: 278,
-                                    columnNumber: 15
-                                }, void 0),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                    style: {
-                                        marginTop: "12px",
-                                        padding: "12px",
-                                        background: "#d4edda",
-                                        borderRadius: "4px"
-                                    },
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                            children: "\uD83D\uDCDA Key Terms:"
-                                        }, void 0, false, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 289,
-                                            columnNumber: 17
-                                        }, void 0),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                            style: {
-                                                margin: "8px 0 0 0",
-                                                fontSize: "13px"
-                                            },
-                                            children: [
-                                                "Click on any underlined term (like ",
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                                    term: "activation",
-                                                    children: "activation"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 291,
-                                                    columnNumber: 54
-                                                }, void 0),
-                                                " or ",
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                                    term: "layer",
-                                                    children: "layer"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                                    lineNumber: 291,
-                                                    columnNumber: 119
-                                                }, void 0),
-                                                ") throughout the interface to learn what it means in simple terms."
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                            lineNumber: 290,
-                                            columnNumber: 17
-                                        }, void 0)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                    lineNumber: 288,
-                                    columnNumber: 15
-                                }, void 0)
-                            ]
-                        }, void 0, true, {
-                            fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                            lineNumber: 246,
-                            columnNumber: 13
-                        }, void 0),
-                        position: "top-right",
-                        size: "large"
-                    }, void 0, false, {
-                        fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                        lineNumber: 243,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                lineNumber: 234,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                style: {
-                    border: "1px solid #ddd",
-                    borderRadius: "8px",
-                    background: "white",
-                    position: "relative",
-                    width: "100%",
-                    height: "calc(100% - 120px)",
-                    minHeight: "600px"
-                },
-                children: [
-                    tooltip && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    selected && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                         style: {
-                            position: "fixed",
-                            top: tooltip.y + 10,
-                            left: tooltip.x + 10,
-                            background: "white",
-                            padding: "6px 10px",
-                            borderRadius: "4px",
+                            marginTop: "16px",
+                            padding: "12px",
+                            background: "#f0f7ff",
                             border: "1px solid #4a90e2",
-                            fontSize: "12px",
-                            pointerEvents: "none",
-                            zIndex: 10,
-                            boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+                            borderRadius: "4px",
+                            fontSize: "14px"
                         },
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                children: "Neuron:"
+                                children: "Selected:"
                             }, void 0, false, {
                                 fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                lineNumber: 327,
+                                lineNumber: 429,
                                 columnNumber: 13
                             }, this),
                             " ",
-                            tooltip.text
+                            selected,
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                style: {
+                                    margin: "8px 0 0 0",
+                                    fontSize: "13px",
+                                    color: "#666"
+                                },
+                                children: [
+                                    "Adjust the ",
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                        term: "weight",
+                                        children: "weights"
+                                    }, void 0, false, {
+                                        fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                        lineNumber: 431,
+                                        columnNumber: 26
+                                    }, this),
+                                    " in the panel on the right to see how changes affect the network.",
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                        term: "edge",
+                                        children: "Edges"
+                                    }, void 0, false, {
+                                        fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                        lineNumber: 432,
+                                        columnNumber: 15
+                                    }, this),
+                                    " update in real-time: thicker and brighter lines indicate stronger connections."
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
+                                lineNumber: 430,
+                                columnNumber: 13
+                            }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                        lineNumber: 312,
+                        lineNumber: 421,
                         columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
-                        ref: ref,
-                        viewBox: "0 0 900 600",
-                        preserveAspectRatio: "xMidYMid meet",
-                        style: {
-                            display: "block",
-                            width: "100%",
-                            height: "100%"
-                        }
-                    }, void 0, false, {
-                        fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                        lineNumber: 331,
-                        columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                lineNumber: 302,
+                lineNumber: 309,
                 columnNumber: 7
             }, this),
-            selected && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                style: {
-                    marginTop: "16px",
-                    padding: "12px",
-                    background: "#f0f7ff",
-                    border: "1px solid #4a90e2",
-                    borderRadius: "4px",
-                    fontSize: "14px"
-                },
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                        children: "Selected:"
-                    }, void 0, false, {
-                        fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                        lineNumber: 348,
-                        columnNumber: 11
-                    }, this),
-                    " ",
-                    selected,
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        style: {
-                            margin: "8px 0 0 0",
-                            fontSize: "13px",
-                            color: "#666"
-                        },
-                        children: [
-                            "This ",
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                term: "neuron",
-                                children: "neuron"
-                            }, void 0, false, {
-                                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                lineNumber: 350,
-                                columnNumber: 18
-                            }, this),
-                            " is connected to other neurons through ",
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
-                                term: "edge",
-                                children: "edges"
-                            }, void 0, false, {
-                                fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                                lineNumber: 350,
-                                columnNumber: 110
-                            }, this),
-                            ". The highlighted connections show how information flows from this neuron to others in the network."
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                        lineNumber: 349,
-                        columnNumber: 11
-                    }, this)
-                ]
-            }, void 0, true, {
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _weightAdjustmentPanelDefault.default), {
+                selectedNodeId: selected,
+                weights: modelWithWeights?.weights || [],
+                onWeightChange: handleWeightChange,
+                originalWeights: originalWeights
+            }, void 0, false, {
                 fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-                lineNumber: 340,
-                columnNumber: 9
+                lineNumber: 439,
+                columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/NeuralNetworkVisualizer/NetworkGraph.tsx",
-        lineNumber: 233,
+        lineNumber: 308,
         columnNumber: 5
     }, this);
 }
-_s(NetworkGraph, "hppn7+KsVc1F3hV23CTWSLH3CCo=");
+_s(NetworkGraph, "Ln7YgPe21bNM+QRsqpuoAbrn2rc=");
 _c = NetworkGraph;
 var _c;
 $RefreshReg$(_c, "NetworkGraph");
@@ -29737,7 +29940,7 @@ $RefreshReg$(_c, "NetworkGraph");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","d3":"eyk9f","../UI/InfoPanel":"935um","../UI/TermDefinition":"juwMD","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"eyk9f":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","d3":"eyk9f","../UI/InfoPanel":"935um","../UI/TermDefinition":"juwMD","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","../../utils/modelUtils":"7lMAx","./WeightAdjustmentPanel":"6JgLQ"}],"eyk9f":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _d3Array = require("d3-array");
@@ -53112,6 +53315,1075 @@ function nopropagation(event) {
     event.stopImmediatePropagation();
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["7KwkS","4dmnR"], "4dmnR", "parcelRequire6fd7", {}, null, null, "http://localhost:1234")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"7lMAx":[function(require,module,exports,__globalThis) {
+/**
+ * Utility functions for managing neural network models and weights
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * Initialize weights for a model if they don't exist
+ * Generates random weights between -1 and 1 for all connections
+ */ parcelHelpers.export(exports, "initializeWeights", ()=>initializeWeights);
+/**
+ * Get weight between two nodes
+ */ parcelHelpers.export(exports, "getWeight", ()=>getWeight);
+/**
+ * Update weight between two nodes
+ */ parcelHelpers.export(exports, "updateWeight", ()=>updateWeight);
+/**
+ * Get all outgoing weights from a node
+ */ parcelHelpers.export(exports, "getOutgoingWeights", ()=>getOutgoingWeights);
+/**
+ * Normalize weight to a visual representation (0-1 scale for opacity/thickness)
+ */ parcelHelpers.export(exports, "normalizeWeight", ()=>normalizeWeight);
+/**
+ * Get color for weight (blue for positive, red for negative)
+ */ parcelHelpers.export(exports, "getWeightColor", ()=>getWeightColor);
+/**
+ * Get stroke width for weight visualization
+ */ parcelHelpers.export(exports, "getWeightStrokeWidth", ()=>getWeightStrokeWidth);
+function initializeWeights(model) {
+    if (!model || !model.layers) return model;
+    // If weights already exist, return as-is
+    if (model.weights && Array.isArray(model.weights)) return model;
+    const layers = model.layers;
+    const weights = [];
+    // Generate weights for connections between layers
+    for(let layerIdx = 0; layerIdx < layers.length - 1; layerIdx++){
+        const currentLayerSize = layers[layerIdx].size;
+        const nextLayerSize = layers[layerIdx + 1].size;
+        for(let i = 0; i < currentLayerSize; i++)for(let j = 0; j < nextLayerSize; j++){
+            const sourceId = `L${layerIdx}-N${i}`;
+            const targetId = `L${layerIdx + 1}-N${j}`;
+            // Initialize with random weights between -1 and 1
+            const weight = (Math.random() * 2 - 1) * 0.5; // Scale to -0.5 to 0.5 for better visualization
+            weights.push({
+                sourceId,
+                targetId,
+                weight
+            });
+        }
+    }
+    return {
+        ...model,
+        weights
+    };
+}
+function getWeight(weights, sourceId, targetId) {
+    if (!weights) return 0;
+    const weightData = weights.find((w)=>w.sourceId === sourceId && w.targetId === targetId);
+    return weightData ? weightData.weight : 0;
+}
+function updateWeight(weights, sourceId, targetId, newWeight) {
+    if (!weights) return [];
+    const updated = weights.map((w)=>w.sourceId === sourceId && w.targetId === targetId ? {
+            ...w,
+            weight: newWeight
+        } : w);
+    // If weight didn't exist, add it
+    const exists = weights.some((w)=>w.sourceId === sourceId && w.targetId === targetId);
+    if (!exists) updated.push({
+        sourceId,
+        targetId,
+        weight: newWeight
+    });
+    return updated;
+}
+function getOutgoingWeights(weights, sourceId) {
+    if (!weights) return [];
+    return weights.filter((w)=>w.sourceId === sourceId);
+}
+function normalizeWeight(weight) {
+    // Map weight from range [-1, 1] to [0, 1] for visualization
+    return (weight + 1) / 2;
+}
+function getWeightColor(weight, opacity = 1) {
+    const clampedOpacity = Math.max(0, Math.min(1, opacity));
+    if (weight > 0) {
+        // Positive weights: shades of blue (brighter for larger weights)
+        const intensity = Math.min(Math.abs(weight), 1);
+        const alpha = 0.4 + intensity * 0.6; // Range from 0.4 to 1.0
+        return `rgba(74, 144, 226, ${alpha * clampedOpacity})`;
+    } else if (weight < 0) {
+        // Negative weights: shades of red (brighter for larger absolute values)
+        const intensity = Math.min(Math.abs(weight), 1);
+        const alpha = 0.4 + intensity * 0.6; // Range from 0.4 to 1.0
+        return `rgba(255, 65, 54, ${alpha * clampedOpacity})`;
+    } else return `rgba(170, 170, 170, ${0.5 * clampedOpacity})`;
+}
+function getWeightStrokeWidth(weight, baseWidth = 1.2) {
+    const absWeight = Math.abs(weight);
+    // Scale from 1.2 to 5 based on weight magnitude
+    return baseWidth + absWeight * 3.8;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"6JgLQ":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$79b4 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$79b4.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$79b4.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>WeightAdjustmentPanel);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _termDefinition = require("../UI/TermDefinition");
+var _termDefinitionDefault = parcelHelpers.interopDefault(_termDefinition);
+var _infoPanel = require("../UI/InfoPanel");
+var _infoPanelDefault = parcelHelpers.interopDefault(_infoPanel);
+var _modelUtils = require("../../utils/modelUtils");
+var _s = $RefreshSig$();
+function WeightAdjustmentPanel({ selectedNodeId, weights, onWeightChange, originalWeights }) {
+    _s();
+    const [localWeights, setLocalWeights] = (0, _react.useState)({});
+    // Get outgoing weights for the selected node
+    const outgoingWeights = selectedNodeId ? (0, _modelUtils.getOutgoingWeights)(weights, selectedNodeId) : [];
+    // Initialize local weights when selection changes
+    (0, _react.useEffect)(()=>{
+        if (selectedNodeId) {
+            const outgoing = (0, _modelUtils.getOutgoingWeights)(weights, selectedNodeId);
+            const weightMap = {};
+            outgoing.forEach((w)=>{
+                weightMap[w.targetId] = w.weight;
+            });
+            setLocalWeights(weightMap);
+        } else setLocalWeights({});
+    }, [
+        selectedNodeId,
+        weights
+    ]);
+    const handleWeightChange = (targetId, newWeight)=>{
+        if (!selectedNodeId) return;
+        // Update local state
+        setLocalWeights((prev)=>({
+                ...prev,
+                [targetId]: newWeight
+            }));
+        // Update global weights
+        const updatedWeights = (0, _modelUtils.updateWeight)(weights, selectedNodeId, targetId, newWeight);
+        onWeightChange(updatedWeights);
+    };
+    const getOriginalWeight = (targetId)=>{
+        if (!selectedNodeId) return 0;
+        const original = originalWeights.find((w)=>w.sourceId === selectedNodeId && w.targetId === targetId);
+        return original ? original.weight : 0;
+    };
+    const resetWeight = (targetId)=>{
+        const original = getOriginalWeight(targetId);
+        handleWeightChange(targetId, original);
+    };
+    const resetAllWeights = ()=>{
+        if (!selectedNodeId) return;
+        outgoingWeights.forEach((w)=>{
+            const original = getOriginalWeight(w.targetId);
+            handleWeightChange(w.targetId, original);
+        });
+    };
+    if (!selectedNodeId || outgoingWeights.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        style: {
+            width: "320px",
+            padding: "20px",
+            borderLeft: "1px solid #ccc",
+            background: "#f8f9fa",
+            height: "100vh",
+            overflowY: "auto"
+        },
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                style: {
+                    margin: "0 0 16px 0",
+                    fontSize: "18px"
+                },
+                children: "Weight Adjustment"
+            }, void 0, false, {
+                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                lineNumber: 85,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                style: {
+                    color: "#666",
+                    fontSize: "14px",
+                    lineHeight: "1.6"
+                },
+                children: [
+                    "Select a ",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                        term: "neuron",
+                        children: "neuron"
+                    }, void 0, false, {
+                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                        lineNumber: 89,
+                        columnNumber: 20
+                    }, this),
+                    " in the network to adjust its outgoing ",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                        term: "weight",
+                        children: "weights"
+                    }, void 0, false, {
+                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                        lineNumber: 89,
+                        columnNumber: 112
+                    }, this),
+                    "."
+                ]
+            }, void 0, true, {
+                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                lineNumber: 88,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                style: {
+                    marginTop: "20px",
+                    padding: "12px",
+                    background: "#e8f4f8",
+                    borderRadius: "4px",
+                    fontSize: "13px"
+                },
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                        children: "\uD83D\uDCA1 Tip:"
+                    }, void 0, false, {
+                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                        lineNumber: 98,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                        style: {
+                            margin: "8px 0 0 0"
+                        },
+                        children: [
+                            "Click on any ",
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                term: "neuron",
+                                children: "neuron"
+                            }, void 0, false, {
+                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                lineNumber: 100,
+                                columnNumber: 26
+                            }, this),
+                            " (circle) in the visualization to see and adjust its ",
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                term: "connection",
+                                children: "connections"
+                            }, void 0, false, {
+                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                lineNumber: 100,
+                                columnNumber: 132
+                            }, this),
+                            " to other neurons."
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                        lineNumber: 99,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                lineNumber: 91,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+        lineNumber: 77,
+        columnNumber: 7
+    }, this);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        style: {
+            width: "360px",
+            padding: "20px",
+            borderLeft: "1px solid #ccc",
+            background: "#f8f9fa",
+            height: "100vh",
+            overflowY: "auto"
+        },
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                style: {
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    marginBottom: "16px"
+                },
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        style: {
+                            margin: 0,
+                            fontSize: "18px"
+                        },
+                        children: [
+                            "Adjust ",
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                term: "weight",
+                                children: "Weights"
+                            }, void 0, false, {
+                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                lineNumber: 118,
+                                columnNumber: 18
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                        lineNumber: 117,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _infoPanelDefault.default), {
+                        title: "How to Adjust Weights",
+                        content: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                    style: {
+                                        marginTop: 0
+                                    },
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                        children: "What are Weights?"
+                                    }, void 0, false, {
+                                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                        lineNumber: 125,
+                                        columnNumber: 17
+                                    }, void 0)
+                                }, void 0, false, {
+                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                    lineNumber: 124,
+                                    columnNumber: 15
+                                }, void 0),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                            term: "weight",
+                                            children: "Weights"
+                                        }, void 0, false, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                            lineNumber: 128,
+                                            columnNumber: 17
+                                        }, void 0),
+                                        " control how strongly one ",
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                            term: "neuron",
+                                            children: "neuron"
+                                        }, void 0, false, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                            lineNumber: 128,
+                                            columnNumber: 97
+                                        }, void 0),
+                                        ' influences another. By adjusting these values, you can "steer" the ',
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                            term: "policy",
+                                            children: "policy"
+                                        }, void 0, false, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                            lineNumber: 129,
+                                            columnNumber: 64
+                                        }, void 0),
+                                        " and change how the network behaves."
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                    lineNumber: 127,
+                                    columnNumber: 15
+                                }, void 0),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                        children: "How to Use:"
+                                    }, void 0, false, {
+                                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                        lineNumber: 133,
+                                        columnNumber: 17
+                                    }, void 0)
+                                }, void 0, false, {
+                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                    lineNumber: 132,
+                                    columnNumber: 15
+                                }, void 0),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
+                                    style: {
+                                        paddingLeft: "20px",
+                                        margin: "8px 0"
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                            children: [
+                                                "Use the sliders to adjust ",
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                    term: "weight",
+                                                    children: "weight"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                    lineNumber: 136,
+                                                    columnNumber: 47
+                                                }, void 0),
+                                                " values"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                            lineNumber: 136,
+                                            columnNumber: 17
+                                        }, void 0),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                            children: "Positive weights (blue) strengthen the connection"
+                                        }, void 0, false, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                            lineNumber: 137,
+                                            columnNumber: 17
+                                        }, void 0),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                            children: "Negative weights (red) weaken or invert the connection"
+                                        }, void 0, false, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                            lineNumber: 138,
+                                            columnNumber: 17
+                                        }, void 0),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                            children: "Watch the visualization update in real-time"
+                                        }, void 0, false, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                            lineNumber: 139,
+                                            columnNumber: 17
+                                        }, void 0),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                            children: 'Compare "Before" and "After" values to see changes'
+                                        }, void 0, false, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                            lineNumber: 140,
+                                            columnNumber: 17
+                                        }, void 0)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                    lineNumber: 135,
+                                    columnNumber: 15
+                                }, void 0),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    style: {
+                                        marginTop: "16px",
+                                        padding: "12px",
+                                        background: "#fff3cd",
+                                        borderRadius: "4px"
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                            children: "\uD83C\uDFAF Best Practices:"
+                                        }, void 0, false, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                            lineNumber: 144,
+                                            columnNumber: 17
+                                        }, void 0),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
+                                            style: {
+                                                margin: "8px 0 0 0",
+                                                paddingLeft: "20px",
+                                                fontSize: "13px"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: "Make small adjustments first to see the effects"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                    lineNumber: 146,
+                                                    columnNumber: 19
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: "Positive weights (0 to 1) enhance signals"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                    lineNumber: 147,
+                                                    columnNumber: 19
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: "Negative weights (-1 to 0) suppress or invert signals"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                    lineNumber: 148,
+                                                    columnNumber: 19
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: 'Use "Reset" to restore original values'
+                                                }, void 0, false, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                    lineNumber: 149,
+                                                    columnNumber: 19
+                                                }, void 0),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                    children: "Thicker, brighter edges indicate stronger connections"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                    lineNumber: 150,
+                                                    columnNumber: 19
+                                                }, void 0)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                            lineNumber: 145,
+                                            columnNumber: 17
+                                        }, void 0)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                    lineNumber: 143,
+                                    columnNumber: 15
+                                }, void 0),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    style: {
+                                        marginTop: "12px",
+                                        padding: "12px",
+                                        background: "#e8f4f8",
+                                        borderRadius: "4px"
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                            children: "\uD83D\uDCA1 Understanding the Visualization:"
+                                        }, void 0, false, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                            lineNumber: 155,
+                                            columnNumber: 17
+                                        }, void 0),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                            style: {
+                                                margin: "8px 0 0 0",
+                                                fontSize: "13px"
+                                            },
+                                            children: [
+                                                "As you adjust ",
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                    term: "weight",
+                                                    children: "weights"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                    lineNumber: 157,
+                                                    columnNumber: 33
+                                                }, void 0),
+                                                ", the ",
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                    term: "edge",
+                                                    children: "edges"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                    lineNumber: 157,
+                                                    columnNumber: 93
+                                                }, void 0),
+                                                " (lines) in the network change:",
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
+                                                    style: {
+                                                        margin: "8px 0 0 0",
+                                                        paddingLeft: "20px",
+                                                        fontSize: "13px"
+                                                    },
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                            children: [
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                                    children: "Thickness:"
+                                                                }, void 0, false, {
+                                                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                                    lineNumber: 159,
+                                                                    columnNumber: 25
+                                                                }, void 0),
+                                                                " Thicker edges = stronger connections"
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                            lineNumber: 159,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                            children: [
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                                    children: "Color:"
+                                                                }, void 0, false, {
+                                                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                                    lineNumber: 160,
+                                                                    columnNumber: 25
+                                                                }, void 0),
+                                                                " Blue = positive, Red = negative"
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                            lineNumber: 160,
+                                                            columnNumber: 21
+                                                        }, void 0),
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                                            children: [
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                                                    children: "Brightness:"
+                                                                }, void 0, false, {
+                                                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                                    lineNumber: 161,
+                                                                    columnNumber: 25
+                                                                }, void 0),
+                                                                " Brighter = larger absolute value"
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                            lineNumber: 161,
+                                                            columnNumber: 21
+                                                        }, void 0)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                    lineNumber: 158,
+                                                    columnNumber: 19
+                                                }, void 0)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                            lineNumber: 156,
+                                            columnNumber: 17
+                                        }, void 0)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                    lineNumber: 154,
+                                    columnNumber: 15
+                                }, void 0)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                            lineNumber: 123,
+                            columnNumber: 13
+                        }, void 0),
+                        position: "bottom-left",
+                        size: "large"
+                    }, void 0, false, {
+                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                        lineNumber: 120,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                lineNumber: 116,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                style: {
+                    marginBottom: "16px",
+                    padding: "12px",
+                    background: "#fff",
+                    border: "1px solid #ddd",
+                    borderRadius: "4px"
+                },
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        style: {
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            marginBottom: "8px"
+                        },
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                style: {
+                                    fontSize: "14px"
+                                },
+                                children: "Selected Node:"
+                            }, void 0, false, {
+                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                lineNumber: 180,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                style: {
+                                    fontFamily: "monospace",
+                                    fontSize: "13px",
+                                    color: "#666"
+                                },
+                                children: selectedNodeId
+                            }, void 0, false, {
+                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                lineNumber: 181,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                        lineNumber: 179,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        style: {
+                            fontSize: "12px",
+                            color: "#888"
+                        },
+                        children: [
+                            "Adjusting ",
+                            outgoingWeights.length,
+                            " outgoing ",
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                term: "connection",
+                                children: "connection"
+                            }, void 0, false, {
+                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                lineNumber: 184,
+                                columnNumber: 55
+                            }, this),
+                            outgoingWeights.length !== 1 ? "s" : ""
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                        lineNumber: 183,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                lineNumber: 172,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                style: {
+                    marginBottom: "16px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center"
+                },
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                    onClick: resetAllWeights,
+                    style: {
+                        padding: "8px 16px",
+                        background: "#6c757d",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "4px",
+                        cursor: "pointer",
+                        fontSize: "13px",
+                        fontWeight: "500"
+                    },
+                    children: "Reset All to Original"
+                }, void 0, false, {
+                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                    lineNumber: 190,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                lineNumber: 189,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                style: {
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px"
+                },
+                children: outgoingWeights.map((weightData)=>{
+                    const currentWeight = localWeights[weightData.targetId] ?? weightData.weight;
+                    const originalWeight = getOriginalWeight(weightData.targetId);
+                    const hasChanged = Math.abs(currentWeight - originalWeight) > 0.001;
+                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        style: {
+                            padding: "16px",
+                            background: hasChanged ? "#fff3cd" : "#fff",
+                            border: hasChanged ? "2px solid #ffc107" : "1px solid #ddd",
+                            borderRadius: "6px"
+                        },
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                style: {
+                                    marginBottom: "12px"
+                                },
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    style: {
+                                        fontSize: "13px",
+                                        fontWeight: "500",
+                                        marginBottom: "4px"
+                                    },
+                                    children: [
+                                        "To: ",
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                            style: {
+                                                fontFamily: "monospace",
+                                                color: "#4a90e2"
+                                            },
+                                            children: weightData.targetId
+                                        }, void 0, false, {
+                                            fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                            lineNumber: 225,
+                                            columnNumber: 23
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                    lineNumber: 224,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                lineNumber: 223,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                style: {
+                                    marginBottom: "12px"
+                                },
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                        style: {
+                                            display: "block",
+                                            marginBottom: "8px",
+                                            fontSize: "13px",
+                                            fontWeight: "500"
+                                        },
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _termDefinitionDefault.default), {
+                                                term: "weight",
+                                                children: "Weight"
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                lineNumber: 231,
+                                                columnNumber: 19
+                                            }, this),
+                                            " Value:"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                        lineNumber: 230,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                        type: "range",
+                                        min: "-1",
+                                        max: "1",
+                                        step: "0.01",
+                                        value: currentWeight,
+                                        onChange: (e)=>handleWeightChange(weightData.targetId, parseFloat(e.target.value)),
+                                        style: {
+                                            width: "100%",
+                                            height: "6px",
+                                            borderRadius: "3px",
+                                            outline: "none",
+                                            cursor: "pointer"
+                                        }
+                                    }, void 0, false, {
+                                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                        lineNumber: 233,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                        style: {
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            marginTop: "4px",
+                                            fontSize: "11px",
+                                            color: "#666"
+                                        },
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                                children: "-1.0"
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                lineNumber: 249,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                                children: "0.0"
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                lineNumber: 250,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                                children: "1.0"
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                lineNumber: 251,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                        lineNumber: 248,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                lineNumber: 229,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                style: {
+                                    display: "grid",
+                                    gridTemplateColumns: "1fr 1fr",
+                                    gap: "12px",
+                                    marginBottom: "12px",
+                                    fontSize: "12px"
+                                },
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                        style: {
+                                            padding: "8px",
+                                            background: "#f8f9fa",
+                                            borderRadius: "4px",
+                                            border: "1px solid #dee2e6"
+                                        },
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                                style: {
+                                                    color: "#666",
+                                                    marginBottom: "4px"
+                                                },
+                                                children: "Before:"
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                lineNumber: 268,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                                style: {
+                                                    fontFamily: "monospace",
+                                                    fontSize: "14px",
+                                                    fontWeight: "600",
+                                                    color: originalWeight >= 0 ? "#4a90e2" : "#ff4136"
+                                                },
+                                                children: originalWeight.toFixed(3)
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                lineNumber: 269,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                        lineNumber: 262,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                        style: {
+                                            padding: "8px",
+                                            background: hasChanged ? "#d4edda" : "#f8f9fa",
+                                            borderRadius: "4px",
+                                            border: hasChanged ? "2px solid #28a745" : "1px solid #dee2e6"
+                                        },
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                                style: {
+                                                    color: "#666",
+                                                    marginBottom: "4px"
+                                                },
+                                                children: "After:"
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                lineNumber: 284,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                                style: {
+                                                    fontFamily: "monospace",
+                                                    fontSize: "14px",
+                                                    fontWeight: "600",
+                                                    color: currentWeight >= 0 ? "#4a90e2" : "#ff4136"
+                                                },
+                                                children: currentWeight.toFixed(3)
+                                            }, void 0, false, {
+                                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                                lineNumber: 285,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                        lineNumber: 278,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                lineNumber: 255,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                style: {
+                                    fontSize: "11px",
+                                    color: "#666",
+                                    marginBottom: "12px",
+                                    padding: "6px",
+                                    background: "#f8f9fa",
+                                    borderRadius: "4px"
+                                },
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                        children: "Change:"
+                                    }, void 0, false, {
+                                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                        lineNumber: 304,
+                                        columnNumber: 17
+                                    }, this),
+                                    " ",
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                        style: {
+                                            color: hasChanged ? currentWeight > originalWeight ? "#28a745" : "#ff4136" : "#666",
+                                            fontFamily: "monospace"
+                                        },
+                                        children: [
+                                            currentWeight > originalWeight ? "+" : "",
+                                            (currentWeight - originalWeight).toFixed(3)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                        lineNumber: 305,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                lineNumber: 296,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                                onClick: ()=>resetWeight(weightData.targetId),
+                                disabled: !hasChanged,
+                                style: {
+                                    width: "100%",
+                                    padding: "6px 12px",
+                                    background: hasChanged ? "#6c757d" : "#e9ecef",
+                                    color: hasChanged ? "white" : "#6c757d",
+                                    border: "none",
+                                    borderRadius: "4px",
+                                    cursor: hasChanged ? "pointer" : "not-allowed",
+                                    fontSize: "12px",
+                                    opacity: hasChanged ? 1 : 0.6
+                                },
+                                children: "Reset This Weight"
+                            }, void 0, false, {
+                                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                                lineNumber: 314,
+                                columnNumber: 15
+                            }, this)
+                        ]
+                    }, weightData.targetId, true, {
+                        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                        lineNumber: 214,
+                        columnNumber: 13
+                    }, this);
+                })
+            }, void 0, false, {
+                fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+                lineNumber: 207,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/NeuralNetworkVisualizer/WeightAdjustmentPanel.tsx",
+        lineNumber: 108,
+        columnNumber: 5
+    }, this);
+}
+_s(WeightAdjustmentPanel, "NRVj0JyaaeFsJwpH90AsZnO60EI=");
+_c = WeightAdjustmentPanel;
+var _c;
+$RefreshReg$(_c, "WeightAdjustmentPanel");
+
+  $parcel$ReactRefreshHelpers$79b4.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../UI/TermDefinition":"juwMD","../UI/InfoPanel":"935um","../../utils/modelUtils":"7lMAx","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}]},["7krbH","4dmnR"], "4dmnR", "parcelRequire1531", {}, null, null, "http://localhost:49685")
 
 //# sourceMappingURL=cis4120.6efbc4f8.js.map
