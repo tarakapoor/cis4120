@@ -24,7 +24,7 @@ An interactive web application for visualizing, debugging, and manipulating neur
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/tarakapoor/cis4120.git
 cd cis4120
 ```
 
