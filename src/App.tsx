@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import ModelUpload from "./components/NeuralNetworkVisualizer/ModelUpload";
 import NetworkGraph from "./components/NeuralNetworkVisualizer/NetworkGraph";
+import ActivationViewer from "./components/NeuralNetworkVisualizer/ActivationViewer";
 import InfoPanel from "./components/UI/InfoPanel";
 import TermDefinition from "./components/UI/TermDefinition";
 
 export default function App() {
   const [model, setModel] = useState(null);
+  const [activations, setActivations] = useState(null);
+  const [currentActivation, setCurrentActivation] = useState(null);
 
   return (
     <div style={{ display: "flex", height: "100vh", flexDirection: "column" }}>
@@ -66,11 +69,27 @@ export default function App() {
       </div>
       
       <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
-        <ModelUpload onLoadModel={(data) => setModel(data)} />
+        <ModelUpload
+          onLoadModel={(data) => setModel(data)}
+          onRunComplete={(results) => {
+            if (results && results.activations) {
+              setActivations(results.activations);
+            }
+          }}
+        />
 
-        <div style={{ flex: 1, overflow: "auto" }}>
+        <div style={{ flex: 1, overflow: "auto", display: "flex", flexDirection: "column" }}>
           {model ? (
-            <NetworkGraph model={model} />
+            <>
+              <NetworkGraph model={model} currentActivation={currentActivation} />
+              {activations && (
+                <ActivationViewer
+                  activations={activations}
+                  model={model}
+                  onTimestepChange={(timestep, activation) => setCurrentActivation(activation)}
+                />
+              )}
+            </>
           ) : (
             <div style={{ 
               padding: "40px 20px", 
