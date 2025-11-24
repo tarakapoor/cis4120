@@ -93,7 +93,8 @@ export default function WeightAdjustmentPanel({
           padding: "12px",
           background: "#e8f4f8",
           borderRadius: "4px",
-          fontSize: "13px"
+          fontSize: "13px",
+          flexShrink: 0
         }}>
           <strong>💡 Tip:</strong>
           <p style={{ margin: "8px 0 0 0" }}>
@@ -111,7 +112,8 @@ export default function WeightAdjustmentPanel({
       borderLeft: "1px solid #ccc",
       background: "#f8f9fa",
       height: "100vh",
-      overflowY: "auto"
+      overflowY: "auto",
+      // flexShrink: 0
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
         <h3 style={{ margin: 0, fontSize: "18px" }}>
