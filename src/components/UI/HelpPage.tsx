@@ -108,7 +108,7 @@ export default function HelpPage({ onClose }: HelpPageProps) {
             </h2>
             <div style={{ fontSize: "16px", lineHeight: "1.8", color: "#475569" }}>
               <p style={{ marginBottom: "16px" }}>
-                This Neural Network Debugger allows you to visualize, analyze, and manipulate neural network models. 
+                Brainwave allows you to visualize, analyze, and manipulate neural network models. 
                 The interface is designed for users familiar with neural networks who want a clean, professional tool for model inspection and experimentation.
               </p>
               <ol style={{ paddingLeft: "24px", marginBottom: "16px" }}>

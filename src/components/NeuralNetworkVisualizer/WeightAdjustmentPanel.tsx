@@ -75,12 +75,14 @@ export default function WeightAdjustmentPanel({
   if (!selectedNodeId || outgoingWeights.length === 0) {
     return (
       <div style={{
-        width: "320px",
+        width: "384px",
         padding: "20px",
+        paddingBottom: "40px",
         borderLeft: "1px solid #e2e8f0",
         background: "#ffffff",
-        height: "100vh",
-        overflowY: "auto"
+        height: "100%",
+        overflowY: "auto",
+        boxSizing: "border-box"
       }}>
         <h3 style={{ margin: "0 0 16px 0", fontSize: "18px", fontWeight: "600", color: "#1e293b" }}>
           Weight Adjustment
@@ -108,12 +110,14 @@ export default function WeightAdjustmentPanel({
 
   return (
     <div style={{
-      width: "360px",
+      width: "384px",
       padding: "20px",
+      paddingBottom: "40px",
       borderLeft: "1px solid #e2e8f0",
       background: "#ffffff",
-      height: "100vh",
+      height: "100%",
       overflowY: "auto",
+      boxSizing: "border-box",
       // flexShrink: 0
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
@@ -189,8 +193,7 @@ export default function WeightAdjustmentPanel({
           <span style={{ fontFamily: "monospace", fontSize: "13px", color: "#475569" }}>{selectedNodeId}</span>
         </div>
         <div style={{ fontSize: "12px", color: "#64748b" }}>
-          Adjusting {outgoingWeights.length} outgoing <TermDefinition term="connection">connection</TermDefinition>
-          {outgoingWeights.length !== 1 ? "s" : ""}
+          Adjusting {outgoingWeights.length} outgoing <TermDefinition term="connection">{outgoingWeights.length !== 1 ? "connections" : "connection"}</TermDefinition>
         </div>
       </div>
 

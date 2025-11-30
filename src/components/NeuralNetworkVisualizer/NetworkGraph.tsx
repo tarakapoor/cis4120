@@ -281,10 +281,10 @@ export default function NetworkGraph({ model }: any) {
       <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "20px", overflow: "auto" }}>
         <div style={{ marginBottom: "16px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
           <div style={{ flex: 1 }}>
-            <h2 style={{ margin: "0 0 8px 0", fontSize: "24px", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", fontWeight: "600", color: "#1e293b" }}>
+            <h2 style={{ margin: "0 0 8px 0", fontSize: "24px", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", fontWeight: "600", color: "#e2e8f0", textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>
               <TermDefinition term="neural network">Neural Network</TermDefinition> Visualization
             </h2>
-            <p style={{ margin: 0, color: "#64748b", fontSize: "14px", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
+            <p style={{ margin: 0, color: "#cbd5e1", fontSize: "14px", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
               Click on <TermDefinition term="neuron">neurons</TermDefinition> to adjust <TermDefinition term="weight">weights</TermDefinition> and steer the <TermDefinition term="policy">policy</TermDefinition>
             </p>
           </div>
@@ -293,9 +293,9 @@ export default function NetworkGraph({ model }: any) {
               onClick={() => setShowLabels(!showLabels)}
               style={{
                 padding: "8px 16px",
-                background: showLabels ? "#2563eb" : "white",
-                color: showLabels ? "white" : "#2563eb",
-                border: "2px solid #2563eb",
+                background: showLabels ? "#475569" : "rgba(71, 85, 105, 0.2)",
+                color: "#e2e8f0",
+                border: "1px solid rgba(71, 85, 105, 0.5)",
                 borderRadius: "6px",
                 cursor: "pointer",
                 fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
@@ -310,9 +310,9 @@ export default function NetworkGraph({ model }: any) {
               onClick={() => setShowNodeLabels(!showNodeLabels)}
               style={{
                 padding: "8px 16px",
-                background: showNodeLabels ? "#2563eb" : "white",
-                color: showNodeLabels ? "white" : "#2563eb",
-                border: "2px solid #2563eb",
+                background: showNodeLabels ? "#475569" : "rgba(71, 85, 105, 0.2)",
+                color: "#e2e8f0",
+                border: "1px solid rgba(71, 85, 105, 0.5)",
                 borderRadius: "6px",
                 cursor: "pointer",
                 fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",

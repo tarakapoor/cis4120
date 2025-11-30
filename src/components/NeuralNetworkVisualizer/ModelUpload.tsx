@@ -7,9 +7,11 @@ type Summary = { layers: { size: number }[] };
 type Props = {
   onLoadModel: (summary: Summary) => void;
   onRunComplete?: (results: any) => void;
+  isMinimized?: boolean;
+  onToggleMinimize?: () => void;
 };
 
-export default function ModelUpload({ onLoadModel, onRunComplete }: Props) {
+export default function ModelUpload({ onLoadModel, onRunComplete, isMinimized = false, onToggleMinimize }: Props) {
   const [modelId, setModelId] = useState<string | null>(null);
   const [weightKeys, setWeightKeys] = useState<string[]>([]);
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
@@ -237,61 +239,133 @@ export default function ModelUpload({ onLoadModel, onRunComplete }: Props) {
   }
 
   return (
-    <div style={{ width: 280, padding: 20, borderRight: "1px solid #e2e8f0", overflowY: "auto", height: "100vh", background: "#ffffff" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
-        <h3 style={{ margin: 0, fontSize: "18px", fontWeight: "600", color: "#1e293b" }}>Upload <TermDefinition term="neural network">Model</TermDefinition></h3>
-        <InfoPanel
-          title="How to Upload a Model"
-          content={
-            <div>
-              <p><strong>New:</strong> You can now upload <code>.pt</code> PyTorch checkpoints. We’ll infer layer sizes and convert to the JSON structure your graph needs.</p>
-              {/* keep the rest of your existing help content if useful */}
-            </div>
-          }
-          position="bottom-right"
-          size="large"
-        />
+    <div style={{ 
+      width: isMinimized ? "40px" : "280px", 
+      padding: isMinimized ? "24px 8px" : "24px 20px", 
+      borderRight: "1px solid rgba(71, 85, 105, 0.3)", 
+      overflowY: "auto", 
+      height: "100vh", 
+      background: "#1a2332", 
+      display: "flex", 
+      flexDirection: "column",
+      transition: "width 0.3s ease, padding 0.3s ease",
+      position: "relative"
+    }}>
+      {/* Collapse button on the edge */}
+      <button
+        onClick={onToggleMinimize}
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "-20px",
+          padding: "12px 6px",
+          background: "#2d3748",
+          border: "1px solid rgba(71, 85, 105, 0.5)",
+          borderRadius: isMinimized ? "0 8px 8px 0" : "8px 0 0 8px",
+          cursor: "pointer",
+          fontSize: "18px",
+          color: "#94a3b8",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "32px",
+          height: "60px",
+          transition: "all 0.2s",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
+          zIndex: 100,
+          borderRight: isMinimized ? "1px solid rgba(71, 85, 105, 0.5)" : "none",
+          margin: 0,
+          lineHeight: 1
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "#475569";
+          e.currentTarget.style.color = "#e2e8f0";
+          e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.4)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "#2d3748";
+          e.currentTarget.style.color = "#94a3b8";
+          e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.3)";
+        }}
+        title={isMinimized ? "Expand panel" : "Minimize panel"}
+      >
+        {isMinimized ? "▶" : "◀"}
+      </button>
+
+      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "20px", justifyContent: isMinimized ? "center" : "flex-start" }}>
+        {!isMinimized && (
+          <>
+            <h3 style={{ margin: 0, fontSize: "18px", fontWeight: "600", color: "#e2e8f0" }}>Upload <TermDefinition term="neural network">Model</TermDefinition></h3>
+            <InfoPanel
+              title="How to Upload a Model"
+              content={
+                <div>
+                  <p><strong>New:</strong> You can now upload <code>.pt</code> PyTorch checkpoints. We'll infer layer sizes and convert to the JSON structure your graph needs.</p>
+                  {/* keep the rest of your existing help content if useful */}
+                </div>
+              }
+              position="bottom-right"
+              size="large"
+            />
+          </>
+        )}
       </div>
 
-      <div style={{ marginBottom: "16px" }}>
-        <label style={{ display: "block", marginBottom: "8px", fontSize: "14px", fontWeight: 500, color: "#1e293b" }}>
-          Select Model File (.json or .pt):
-        </label>
-        <input
-          type="file"
-          accept=".json,.pt"
-          onChange={handleFile}
-          disabled={busy}
-          style={{ width: "100%", padding: 8, border: "1px solid #cbd5e1", borderRadius: 4, fontSize: 14, background: "white" }}
-        />
-      </div>
-
-      {modelId && (
+      {!isMinimized && (
         <>
-          <div style={{ padding: 12, background: "#f8fafc", borderRadius: 4, marginBottom: 12, border: "1px solid #e2e8f0" }}>
-            <div style={{ fontWeight: 600, marginBottom: 8, color: "#1e293b" }}>Weight editing</div>
-            <label style={{ display: "block", marginBottom: 6, fontSize: 13, color: "#475569" }}>Choose tensor key:</label>
+          <div style={{ marginBottom: "20px", width: "100%" }}>
+            <label style={{ display: "block", marginBottom: "10px", fontSize: "14px", fontWeight: 500, color: "#e2e8f0", textAlign: "left" }}>
+              Select Model File (.json or .pt):
+            </label>
+            <input
+              type="file"
+              accept=".json,.pt"
+              onChange={handleFile}
+              disabled={busy}
+              style={{ width: "100%", padding: "10px", border: "1px solid rgba(71, 85, 105, 0.5)", borderRadius: 6, fontSize: 14, background: "#2d3748", color: "#e2e8f0", boxSizing: "border-box" }}
+            />
+          </div>
+
+          {modelId && (
+            <>
+              <div style={{ padding: "16px", background: "#0f172a", borderRadius: 6, marginBottom: "16px", border: "1px solid rgba(71, 85, 105, 0.3)", width: "100%", boxSizing: "border-box" }}>
+            <div style={{ fontWeight: 600, marginBottom: "12px", color: "#e2e8f0", fontSize: "15px" }}>Weight editing</div>
+            <label style={{ display: "block", marginBottom: "8px", fontSize: 13, color: "#94a3b8", textAlign: "left" }}>Choose tensor key:</label>
             <select
               value={selectedKey ?? ""}
               onChange={(e) => setSelectedKey(e.target.value)}
-              style={{ width: "100%", marginBottom: 10, padding: 4, border: "1px solid #cbd5e1", borderRadius: 4, background: "white" }}
+              style={{ width: "100%", marginBottom: "12px", padding: "8px", border: "1px solid rgba(71, 85, 105, 0.5)", borderRadius: 6, background: "#2d3748", color: "#e2e8f0", fontSize: 13, boxSizing: "border-box" }}
             >
               {weightKeys.map(k => <option key={k} value={k}>{k}</option>)}
             </select>
 
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "flex-start" }}>
               <button 
                 onClick={() => perturb("scale")} 
                 disabled={busy}
                 style={{
-                  padding: "6px 12px",
-                  background: busy ? "#cbd5e1" : "#3b82f6",
+                  padding: "8px 14px",
+                  background: busy ? "#475569" : "#475569",
                   color: "white",
                   border: "none",
-                  borderRadius: 4,
+                  borderRadius: 6,
                   cursor: busy ? "not-allowed" : "pointer",
-                  fontSize: 12,
-                  fontWeight: 500
+                  fontSize: 13,
+                  fontWeight: 500,
+                  transition: "all 0.2s",
+                  boxShadow: busy ? "none" : "0 2px 4px rgba(0,0,0,0.3)"
+                }}
+                onMouseEnter={(e) => {
+                  if (!busy) {
+                    e.currentTarget.style.background = "#64748b";
+                    e.currentTarget.style.transform = "translateY(-1px)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!busy) {
+                    e.currentTarget.style.background = "#475569";
+                    e.currentTarget.style.transform = "translateY(0)";
+                  }
                 }}
               >
                 Scale
@@ -300,14 +374,28 @@ export default function ModelUpload({ onLoadModel, onRunComplete }: Props) {
                 onClick={() => perturb("add_noise")} 
                 disabled={busy}
                 style={{
-                  padding: "6px 12px",
-                  background: busy ? "#cbd5e1" : "#3b82f6",
+                  padding: "8px 14px",
+                  background: busy ? "#475569" : "#475569",
                   color: "white",
                   border: "none",
-                  borderRadius: 4,
+                  borderRadius: 6,
                   cursor: busy ? "not-allowed" : "pointer",
-                  fontSize: 12,
-                  fontWeight: 500
+                  fontSize: 13,
+                  fontWeight: 500,
+                  transition: "all 0.2s",
+                  boxShadow: busy ? "none" : "0 2px 4px rgba(0,0,0,0.3)"
+                }}
+                onMouseEnter={(e) => {
+                  if (!busy) {
+                    e.currentTarget.style.background = "#64748b";
+                    e.currentTarget.style.transform = "translateY(-1px)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!busy) {
+                    e.currentTarget.style.background = "#475569";
+                    e.currentTarget.style.transform = "translateY(0)";
+                  }
                 }}
               >
                 Add noise
@@ -316,33 +404,47 @@ export default function ModelUpload({ onLoadModel, onRunComplete }: Props) {
                 onClick={() => perturb("set")} 
                 disabled={busy}
                 style={{
-                  padding: "6px 12px",
-                  background: busy ? "#cbd5e1" : "#3b82f6",
+                  padding: "8px 14px",
+                  background: busy ? "#475569" : "#475569",
                   color: "white",
                   border: "none",
-                  borderRadius: 4,
+                  borderRadius: 6,
                   cursor: busy ? "not-allowed" : "pointer",
-                  fontSize: 12,
-                  fontWeight: 500
+                  fontSize: 13,
+                  fontWeight: 500,
+                  transition: "all 0.2s",
+                  boxShadow: busy ? "none" : "0 2px 4px rgba(0,0,0,0.3)"
+                }}
+                onMouseEnter={(e) => {
+                  if (!busy) {
+                    e.currentTarget.style.background = "#64748b";
+                    e.currentTarget.style.transform = "translateY(-1px)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!busy) {
+                    e.currentTarget.style.background = "#475569";
+                    e.currentTarget.style.transform = "translateY(0)";
+                  }
                 }}
               >
                 Set value
               </button>
             </div>
 
-            <p style={{ marginTop: 10, fontSize: 12, color: "#64748b" }}>
+            <p style={{ marginTop: 10, fontSize: 12, color: "#94a3b8" }}>
               Changes are in-memory. Perturbations will affect the model run below.
             </p>
           </div>
 
-          <div style={{ padding: 12, background: "#eff6ff", borderRadius: 4, border: "1px solid #bfdbfe" }}>
-            <div style={{ fontWeight: 600, marginBottom: 8, color: "#1e293b" }}>Run Model</div>
+          <div style={{ padding: "16px", background: "#0f172a", borderRadius: 6, border: "1px solid rgba(71, 85, 105, 0.3)", width: "100%", boxSizing: "border-box" }}>
+            <div style={{ fontWeight: 600, marginBottom: "12px", color: "#e2e8f0", fontSize: "15px" }}>Run Model</div>
 
-            <label style={{ display: "block", marginBottom: 6, fontSize: 13, color: "#475569" }}>Environment:</label>
+            <label style={{ display: "block", marginBottom: "8px", fontSize: 13, color: "#94a3b8", textAlign: "left" }}>Environment:</label>
             <select
               value={environment}
               onChange={(e) => setEnvironment(e.target.value)}
-              style={{ width: "100%", marginBottom: 10, padding: 4, border: "1px solid #cbd5e1", borderRadius: 4, background: "white" }}
+              style={{ width: "100%", marginBottom: "12px", padding: "8px", border: "1px solid rgba(71, 85, 105, 0.5)", borderRadius: 6, background: "#2d3748", color: "#e2e8f0", fontSize: 13, boxSizing: "border-box" }}
             >
               <option value="Walker2d-v4">Walker2d-v4</option>
               <option value="HalfCheetah-v4">HalfCheetah-v4</option>
@@ -351,18 +453,19 @@ export default function ModelUpload({ onLoadModel, onRunComplete }: Props) {
               <option value="hard_stable">hard_stable (6-dim obs)</option>
             </select>
 
-            <div style={{ marginBottom: 10 }}>
-              <label style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, cursor: "pointer" }}>
+            <div style={{ marginBottom: "12px" }}>
+              <label style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: 13, cursor: "pointer", textAlign: "left", color: "#94a3b8" }}>
                 <input
                   type="checkbox"
                   checked={captureActivations}
                   onChange={(e) => setCaptureActivations(e.target.checked)}
+                  style={{ cursor: "pointer" }}
                 />
                 Capture activations (enables visualization)
               </label>
             </div>
 
-            <p style={{ fontSize: 13, marginBottom: 10, color: "#64748b" }}>
+            <p style={{ fontSize: 13, marginBottom: "12px", color: "#94a3b8", textAlign: "left" }}>
               Test the current model (with any perturbations) in the selected environment.
             </p>
             <button
@@ -370,41 +473,54 @@ export default function ModelUpload({ onLoadModel, onRunComplete }: Props) {
               disabled={isRunning}
               style={{
                 width: "100%",
-                padding: "8px 16px",
-                background: isRunning ? "#94a3b8" : "#2563eb",
+                padding: "10px 16px",
+                background: isRunning ? "#475569" : "#475569",
                 color: "white",
                 border: "none",
-                borderRadius: 4,
+                borderRadius: 6,
                 cursor: isRunning ? "not-allowed" : "pointer",
                 fontSize: 14,
-                fontWeight: 500,
-                transition: "all 0.2s"
+                fontWeight: 600,
+                transition: "all 0.2s",
+                boxShadow: isRunning ? "none" : "0 2px 6px rgba(0,0,0,0.3)"
+              }}
+              onMouseEnter={(e) => {
+                if (!isRunning) {
+                  e.currentTarget.style.background = "#64748b";
+                  e.currentTarget.style.transform = "translateY(-1px)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isRunning) {
+                  e.currentTarget.style.background = "#475569";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }
               }}
             >
               {isRunning ? "Running..." : "Run Model"}
-            </button>
-          </div>
-
-          {runResults && (
-            <div style={{ marginTop: 12, padding: 12, background: "#f0f9ff", borderRadius: 4, border: "1px solid #bfdbfe" }}>
-              <div style={{ fontWeight: 600, marginBottom: 8, color: "#1e293b" }}>Results</div>
-              <div style={{ fontSize: 13, lineHeight: 1.6 }}>
-                <div><strong>Trajectories:</strong> {runResults.num_trajectories}</div>
-                <div><strong>Avg Reward:</strong> {runResults.avg_reward?.toFixed(2)}</div>
-                <div><strong>Max Reward:</strong> {runResults.max_reward?.toFixed(2)}</div>
-                <div><strong>Min Reward:</strong> {runResults.min_reward?.toFixed(2)}</div>
-                <div><strong>Avg Length:</strong> {runResults.avg_length?.toFixed(1)} steps</div>
-              </div>
+              </button>
             </div>
-          )}
 
-          {/* SAE Section */}
-          <div style={{ marginTop: 12, padding: 12, background: "#f8fafc", borderRadius: 4, border: "1px solid #e2e8f0" }}>
-            <div style={{ fontWeight: 600, marginBottom: 8, color: "#1e293b" }}>SAE Feature Analysis</div>
+            {runResults && (
+              <div style={{ marginTop: "16px", padding: "16px", background: "#0f172a", borderRadius: 6, border: "1px solid rgba(71, 85, 105, 0.3)", width: "100%", boxSizing: "border-box" }}>
+                <div style={{ fontWeight: 600, marginBottom: "12px", color: "#e2e8f0", fontSize: "15px" }}>Results</div>
+                <div style={{ fontSize: 13, lineHeight: 1.6, textAlign: "left", color: "#94a3b8" }}>
+                  <div><strong style={{ color: "#e2e8f0" }}>Trajectories:</strong> {runResults.num_trajectories}</div>
+                  <div><strong style={{ color: "#e2e8f0" }}>Avg Reward:</strong> {runResults.avg_reward?.toFixed(2)}</div>
+                  <div><strong style={{ color: "#e2e8f0" }}>Max Reward:</strong> {runResults.max_reward?.toFixed(2)}</div>
+                  <div><strong style={{ color: "#e2e8f0" }}>Min Reward:</strong> {runResults.min_reward?.toFixed(2)}</div>
+                  <div><strong style={{ color: "#e2e8f0" }}>Avg Length:</strong> {runResults.avg_length?.toFixed(1)} steps</div>
+                </div>
+              </div>
+            )}
+
+            {/* SAE Section */}
+            <div style={{ marginTop: "16px", padding: "16px", background: "#0f172a", borderRadius: 6, border: "1px solid rgba(71, 85, 105, 0.3)", width: "100%", boxSizing: "border-box" }}>
+            <div style={{ fontWeight: 600, marginBottom: "12px", color: "#e2e8f0", fontSize: "15px" }}>SAE Feature Analysis</div>
 
             {!saeLoaded ? (
               <>
-                <p style={{ fontSize: 13, marginBottom: 10, color: "#475569" }}>
+                <p style={{ fontSize: 13, marginBottom: "12px", color: "#94a3b8", textAlign: "left" }}>
                   Load a Sparse Autoencoder to interpret and perturb learned features.
                 </p>
                 <button
@@ -412,15 +528,28 @@ export default function ModelUpload({ onLoadModel, onRunComplete }: Props) {
                   disabled={busy}
                   style={{
                     width: "100%",
-                    padding: "8px 16px",
-                    background: busy ? "#94a3b8" : "#475569",
+                    padding: "10px 16px",
+                    background: busy ? "#475569" : "#475569",
                     color: "white",
                     border: "none",
-                    borderRadius: 4,
+                    borderRadius: 6,
                     cursor: busy ? "not-allowed" : "pointer",
                     fontSize: 14,
-                    fontWeight: 500,
-                    transition: "all 0.2s"
+                    fontWeight: 600,
+                    transition: "all 0.2s",
+                    boxShadow: busy ? "none" : "0 2px 6px rgba(0,0,0,0.3)"
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!busy) {
+                      e.currentTarget.style.background = "#64748b";
+                      e.currentTarget.style.transform = "translateY(-1px)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!busy) {
+                      e.currentTarget.style.background = "#475569";
+                      e.currentTarget.style.transform = "translateY(0)";
+                    }
                   }}
                 >
                   {busy ? "Loading..." : "Load SAE"}
@@ -428,19 +557,19 @@ export default function ModelUpload({ onLoadModel, onRunComplete }: Props) {
               </>
             ) : (
               <>
-                <div style={{ fontSize: 12, marginBottom: 10, color: "#475569" }}>
+                <div style={{ fontSize: 13, marginBottom: "12px", color: "#94a3b8", textAlign: "left" }}>
                   <div>Latent dim: {saeInfo?.d_latent}, Top-K: {saeInfo?.k}</div>
                 </div>
 
                 {topFeatures.length > 0 && (
-                  <div style={{ marginBottom: 10 }}>
-                    <label style={{ display: "block", marginBottom: 6, fontSize: 13 }}>
+                  <div style={{ marginBottom: "12px" }}>
+                    <label style={{ display: "block", marginBottom: "8px", fontSize: 13, textAlign: "left", color: "#94a3b8" }}>
                       Top Interpretable Features:
                     </label>
                     <select
                       value={selectedFeature ?? ""}
                       onChange={(e) => setSelectedFeature(parseInt(e.target.value))}
-                      style={{ width: "100%", marginBottom: 8, fontSize: 12 }}
+                      style={{ width: "100%", marginBottom: "12px", fontSize: 13, padding: "8px", border: "1px solid rgba(71, 85, 105, 0.5)", borderRadius: 6, background: "#2d3748", color: "#e2e8f0", boxSizing: "border-box" }}
                     >
                       {topFeatures.map((f) => (
                         <option key={f.feature_idx} value={f.feature_idx}>
@@ -449,7 +578,7 @@ export default function ModelUpload({ onLoadModel, onRunComplete }: Props) {
                       ))}
                     </select>
 
-                    <label style={{ display: "block", marginBottom: 6, fontSize: 13 }}>
+                    <label style={{ display: "block", marginBottom: "8px", fontSize: 13, textAlign: "left", color: "#94a3b8" }}>
                       Alpha (strength): {featureAlpha.toFixed(2)}
                     </label>
                     <input
@@ -459,7 +588,7 @@ export default function ModelUpload({ onLoadModel, onRunComplete }: Props) {
                       step="0.1"
                       value={featureAlpha}
                       onChange={(e) => setFeatureAlpha(parseFloat(e.target.value))}
-                      style={{ width: "100%", marginBottom: 10 }}
+                      style={{ width: "100%", marginBottom: "12px" }}
                     />
 
                     <button
@@ -467,15 +596,28 @@ export default function ModelUpload({ onLoadModel, onRunComplete }: Props) {
                       disabled={busy}
                       style={{
                         width: "100%",
-                        padding: "8px 16px",
-                        background: busy ? "#94a3b8" : "#3b82f6",
+                        padding: "10px 16px",
+                        background: busy ? "#475569" : "#475569",
                         color: "white",
                         border: "none",
-                        borderRadius: 4,
+                        borderRadius: 6,
                         cursor: busy ? "not-allowed" : "pointer",
                         fontSize: 14,
-                        fontWeight: 500,
-                        transition: "all 0.2s"
+                        fontWeight: 600,
+                        transition: "all 0.2s",
+                        boxShadow: busy ? "none" : "0 2px 6px rgba(0,0,0,0.3)"
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!busy) {
+                          e.currentTarget.style.background = "#64748b";
+                          e.currentTarget.style.transform = "translateY(-1px)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!busy) {
+                          e.currentTarget.style.background = "#475569";
+                          e.currentTarget.style.transform = "translateY(0)";
+                        }
                       }}
                     >
                       {busy ? "Applying..." : "Apply Feature Perturbation"}
@@ -483,17 +625,19 @@ export default function ModelUpload({ onLoadModel, onRunComplete }: Props) {
                   </div>
                 )}
               </>
-            )}
+              )}
+            </div>
+          </>
+        )}
+
+          <div style={{ marginTop: "auto", padding: "16px", background: "#0f172a", borderRadius: 6, fontSize: 13, lineHeight: 1.6, border: "1px solid rgba(71, 85, 105, 0.3)", width: "100%", boxSizing: "border-box" }}>
+            <strong style={{ color: "#e2e8f0" }}>What is a Neural Network?</strong>
+            <p style={{ margin: "8px 0 0 0", color: "#94a3b8", textAlign: "left" }}>
+              A <TermDefinition term="neural network">neural network</TermDefinition> learns patterns from data via layers of <TermDefinition term="neuron">neurons</TermDefinition> and weighted <TermDefinition term="edge">connections</TermDefinition>.
+            </p>
           </div>
         </>
       )}
-
-      <div style={{ marginTop: 16, padding: 12, background: "#f8fafc", borderRadius: 4, fontSize: 13, lineHeight: 1.6, border: "1px solid #e2e8f0" }}>
-        <strong style={{ color: "#1e293b" }}>What is a Neural Network?</strong>
-        <p style={{ margin: "8px 0 0 0", color: "#475569" }}>
-          A <TermDefinition term="neural network">neural network</TermDefinition> learns patterns from data via layers of <TermDefinition term="neuron">neurons</TermDefinition> and weighted <TermDefinition term="edge">connections</TermDefinition>.
-        </p>
-      </div>
     </div>
   );
 }

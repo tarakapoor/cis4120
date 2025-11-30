@@ -13,52 +13,103 @@ export default function App() {
   const [activations, setActivations] = useState(null);
   const [currentActivation, setCurrentActivation] = useState(null);
   const [showHelp, setShowHelp] = useState(false);
+  const [isPanelMinimized, setIsPanelMinimized] = useState(false);
 
   return (
     <div style={{ display: "flex", height: "100vh", flexDirection: "column", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", position: "relative" }}>
       <DynamicBackground />
       <div style={{ 
-        padding: "16px 24px", 
-        background: "linear-gradient(135deg, #1e40af 0%, #2563eb 100%)", 
-        borderBottom: "2px solid #1e3a8a",
+        padding: "20px 32px", 
+        background: "linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(26, 35, 50, 0.98) 50%, rgba(30, 41, 59, 0.98) 100%)", 
+        backdropFilter: "blur(20px)",
+        borderBottom: "1px solid rgba(71, 85, 105, 0.3)",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(71, 85, 105, 0.1) inset",
         position: "relative",
-        zIndex: 10
+        zIndex: 10,
+        overflow: "hidden"
       }}>
-        <h1 style={{ margin: 0, fontSize: "24px", color: "white", fontWeight: "600", letterSpacing: "-0.5px" }}>
-          Neural Network Debugger
-        </h1>
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        {/* Shifting gradient overlay */}
+        <div style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 25%, rgba(26, 35, 50, 0.95) 50%, rgba(30, 41, 59, 0.95) 75%, rgba(15, 23, 42, 0.95) 100%)",
+          backgroundSize: "200% 100%",
+          pointerEvents: "none",
+          animation: "shiftGradient 15s ease-in-out infinite",
+          opacity: 0.95
+        }} />
+        
+        {/* Subtle animated overlay for depth */}
+        <div style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "radial-gradient(circle at 20% 50%, rgba(71, 85, 105, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(100, 116, 139, 0.08) 0%, transparent 50%)",
+          pointerEvents: "none",
+          animation: "pulse 8s ease-in-out infinite"
+        }} />
+        
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", position: "relative", zIndex: 1 }}>
+          <div style={{
+            width: "4px",
+            height: "32px",
+            background: "linear-gradient(180deg, #64748b 0%, #475569 100%)",
+            borderRadius: "2px",
+            boxShadow: "0 0 12px rgba(100, 116, 139, 0.4)"
+          }} />
+          <h1 style={{ 
+            margin: 0, 
+            fontSize: "28px", 
+            color: "#e2e8f0", 
+            fontWeight: "700", 
+            letterSpacing: "-0.8px",
+            textShadow: "0 2px 12px rgba(0,0,0,0.5), 0 0 20px rgba(100, 116, 139, 0.2)"
+          }}>
+            Brainwave
+          </h1>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", position: "relative", zIndex: 1 }}>
           <button
             onClick={() => setShowHelp(true)}
             style={{
-              padding: "8px 16px",
-              background: "rgba(255, 255, 255, 0.15)",
-              border: "2px solid rgba(255, 255, 255, 0.3)",
-              borderRadius: "8px",
+              padding: "10px 20px",
+              background: "rgba(255, 255, 255, 0.12)",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+              borderRadius: "10px",
               color: "white",
               fontSize: "14px",
-              fontWeight: "500",
+              fontWeight: "600",
               cursor: "pointer",
-              transition: "all 0.2s",
-              fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+              fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.05) inset",
+              backdropFilter: "blur(10px)"
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(255, 255, 255, 0.25)";
-              e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.5)";
+              e.currentTarget.style.background = "rgba(255, 255, 255, 0.22)";
+              e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.4)";
+              e.currentTarget.style.transform = "translateY(-1px)";
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1) inset";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(255, 255, 255, 0.15)";
-              e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.3)";
+              e.currentTarget.style.background = "rgba(255, 255, 255, 0.12)";
+              e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.2)";
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.05) inset";
             }}
           >
             Help
           </button>
           <InfoPanel
-          title="Welcome to the Neural Network Debugger"
+          title="Welcome to Brainwave"
           content={
             <div style={{ fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
               <p style={{ marginTop: 0, lineHeight: "1.6", color: "#2c3e50" }}>
@@ -107,6 +158,8 @@ export default function App() {
       
       <div style={{ display: "flex", flex: 1, overflow: "hidden", position: "relative", zIndex: 1 }}>
         <ModelUpload
+          isMinimized={isPanelMinimized}
+          onToggleMinimize={() => setIsPanelMinimized(!isPanelMinimized)}
           onLoadModel={(data) => setModel(data)}
           onRunComplete={(results) => {
             if (results && results.activations) {
@@ -131,36 +184,36 @@ export default function App() {
             <div style={{ 
               padding: "40px 20px", 
               textAlign: "center",
-              color: "#64748b",
+              color: "#e2e8f0",
               height: "100%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              background: "rgba(248, 250, 252, 0.7)",
-              backdropFilter: "blur(10px)",
+              background: "rgba(15, 23, 42, 0.3)",
+              backdropFilter: "blur(5px)",
               position: "relative",
               zIndex: 1
             }}>
               <div style={{ maxWidth: "600px" }}>
-                <h2 style={{ color: "#1e293b", marginBottom: "16px", fontSize: "28px", fontWeight: "600", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
-                  Welcome to the Neural Network Visualizer
+                <h2 style={{ color: "#e2e8f0", marginBottom: "16px", fontSize: "28px", fontWeight: "600", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
+                  Welcome to Brainwave
                 </h2>
-                <p style={{ fontSize: "16px", lineHeight: "1.6", marginBottom: "24px", color: "#475569", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
+                <p style={{ fontSize: "16px", lineHeight: "1.6", marginBottom: "24px", color: "#cbd5e1", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
                   Upload a <TermDefinition term="neural network">neural network</TermDefinition> model file to get started. 
                   The model should be a JSON file or PyTorch checkpoint (.pt) containing information about the network's <TermDefinition term="layer">layers</TermDefinition> and structure.
                 </p>
                 <div style={{ 
                   padding: "24px", 
-                  background: "white", 
+                  background: "rgba(30, 41, 59, 0.8)", 
                   borderRadius: "12px",
                   textAlign: "left",
                   marginTop: "20px",
-                  boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
-                  border: "1px solid #e2e8f0"
+                  boxShadow: "0 2px 12px rgba(0,0,0,0.3)",
+                  border: "1px solid rgba(59, 130, 246, 0.3)"
                 }}>
-                  <strong style={{ fontSize: "16px", color: "#1e293b", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>What you can do:</strong>
-                  <ul style={{ marginTop: "12px", lineHeight: "1.8", color: "#475569", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
+                  <strong style={{ fontSize: "16px", color: "#e2e8f0", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>What you can do:</strong>
+                  <ul style={{ marginTop: "12px", lineHeight: "1.8", color: "#cbd5e1", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
                     <li>Visualize the structure of your <TermDefinition term="neural network">neural network</TermDefinition></li>
                     <li>Explore connections between <TermDefinition term="neuron">neurons</TermDefinition></li>
                     <li>Adjust weights to steer policy behavior</li>

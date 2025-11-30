@@ -1,5 +1,15 @@
 import React, { useEffect, useRef } from "react";
 
+interface Node {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  pulsePhase: number;
+  pulseSpeed: number;
+  connections: number[];
+}
+
 export default function DynamicBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -18,134 +28,168 @@ export default function DynamicBackground() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
+    // Color scheme: darker, cooler toned blues
+    const colors = {
+      primary: "#0f172a",      // Very dark navy
+      secondary: "#1e293b",     // Dark navy
+      accent: "#475569",       // Medium slate blue
+      glow: "#64748b"          // Light slate for glow
+    };
+
     // Animation variables
     let animationFrame: number;
     let time = 0;
+    const numNodes = 25;
+    const nodes: Node[] = [];
 
-    // Gradient mesh points
-    const points: Array<{ x: number; y: number; vx: number; vy: number }> = [];
-    const numPoints = 8;
-
-    // Initialize points with better distribution
-    for (let i = 0; i < numPoints; i++) {
-      points.push({
-        x: (Math.random() * 0.6 + 0.2) * canvas.width, // Keep away from edges
-        y: (Math.random() * 0.6 + 0.2) * canvas.height,
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: (Math.random() - 0.5) * 0.8
+    // Initialize nodes
+    for (let i = 0; i < numNodes; i++) {
+      nodes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        pulsePhase: Math.random() * Math.PI * 2,
+        pulseSpeed: 0.02 + Math.random() * 0.03,
+        connections: []
       });
     }
 
+    // Build connection network (each node connects to nearby nodes)
+    const buildConnections = () => {
+      nodes.forEach((node, i) => {
+        node.connections = [];
+        nodes.forEach((other, j) => {
+          if (i !== j) {
+            const dx = node.x - other.x;
+            const dy = node.y - other.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const maxDist = Math.min(canvas.width, canvas.height) * 0.4;
+            if (dist < maxDist && Math.random() > 0.7) {
+              node.connections.push(j);
+            }
+          }
+        });
+      });
+    };
+    buildConnections();
+
     const draw = () => {
-      time += 0.008;
+      time += 0.01;
       
-      // Clear with subtle base color
-      ctx.fillStyle = "#f8fafc";
+      // Clear with very dark navy base
+      ctx.fillStyle = "#0c1226";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Update point positions with slower, smoother movement
-      points.forEach((point, i) => {
-        // Add some sine wave variation for smoother movement
-        point.x += point.vx + Math.sin(time + i) * 0.3;
-        point.y += point.vy + Math.cos(time + i) * 0.3;
+      // Update node positions
+      nodes.forEach((node) => {
+        node.x += node.vx;
+        node.y += node.vy;
+        node.pulsePhase += node.pulseSpeed;
 
         // Bounce off edges
-        if (point.x < 0 || point.x > canvas.width) point.vx *= -1;
-        if (point.y < 0 || point.y > canvas.height) point.vy *= -1;
+        if (node.x < 0 || node.x > canvas.width) {
+          node.vx *= -1;
+          node.x = Math.max(0, Math.min(canvas.width, node.x));
+        }
+        if (node.y < 0 || node.y > canvas.height) {
+          node.vy *= -1;
+          node.y = Math.max(0, Math.min(canvas.height, node.y));
+        }
 
         // Keep in bounds
-        point.x = Math.max(0, Math.min(canvas.width, point.x));
-        point.y = Math.max(0, Math.min(canvas.height, point.y));
+        node.x = Math.max(0, Math.min(canvas.width, node.x));
+        node.y = Math.max(0, Math.min(canvas.height, node.y));
       });
 
-      // Draw more visible gradient mesh
-      const gradient1 = ctx.createRadialGradient(
-        points[0].x,
-        points[0].y,
-        0,
-        points[0].x,
-        points[0].y,
-        Math.max(canvas.width, canvas.height) * 0.5
-      );
-      gradient1.addColorStop(0, "rgba(37, 99, 235, 0.15)");
-      gradient1.addColorStop(0.4, "rgba(147, 197, 253, 0.08)");
-      gradient1.addColorStop(0.8, "rgba(203, 213, 225, 0.03)");
-      gradient1.addColorStop(1, "rgba(248, 250, 252, 0)");
-
-      const gradient2 = ctx.createRadialGradient(
-        points[1].x,
-        points[1].y,
-        0,
-        points[1].x,
-        points[1].y,
-        Math.max(canvas.width, canvas.height) * 0.45
-      );
-      gradient2.addColorStop(0, "rgba(30, 64, 175, 0.12)");
-      gradient2.addColorStop(0.4, "rgba(100, 116, 139, 0.06)");
-      gradient2.addColorStop(0.8, "rgba(148, 163, 184, 0.02)");
-      gradient2.addColorStop(1, "rgba(248, 250, 252, 0)");
-
-      const gradient3 = ctx.createRadialGradient(
-        points[2].x,
-        points[2].y,
-        0,
-        points[2].x,
-        points[2].y,
-        Math.max(canvas.width, canvas.height) * 0.5
-      );
-      gradient3.addColorStop(0, "rgba(59, 130, 246, 0.13)");
-      gradient3.addColorStop(0.4, "rgba(191, 219, 254, 0.06)");
-      gradient3.addColorStop(0.8, "rgba(226, 232, 240, 0.02)");
-      gradient3.addColorStop(1, "rgba(248, 250, 252, 0)");
-
-      // Additional gradients for more depth
-      const gradient4 = ctx.createRadialGradient(
-        points[3]?.x || canvas.width * 0.3,
-        points[3]?.y || canvas.height * 0.7,
-        0,
-        points[3]?.x || canvas.width * 0.3,
-        points[3]?.y || canvas.height * 0.7,
-        Math.max(canvas.width, canvas.height) * 0.4
-      );
-      gradient4.addColorStop(0, "rgba(71, 85, 105, 0.08)");
-      gradient4.addColorStop(0.5, "rgba(148, 163, 184, 0.04)");
-      gradient4.addColorStop(1, "rgba(248, 250, 252, 0)");
-
-      // Draw gradients with blend mode for smoother effect
-      ctx.globalCompositeOperation = "screen";
-      ctx.fillStyle = gradient1;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = gradient2;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = gradient3;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = gradient4;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.globalCompositeOperation = "source-over";
-
-      // Draw subtle connecting lines between points
+      // Draw connections first (so nodes appear on top)
       ctx.lineWidth = 1.5;
-      
-      for (let i = 0; i < points.length; i++) {
-        for (let j = i + 1; j < points.length; j++) {
-          const dx = points[i].x - points[j].x;
-          const dy = points[i].y - points[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+      nodes.forEach((node, i) => {
+        node.connections.forEach((targetIdx) => {
+          const target = nodes[targetIdx];
+          const dx = node.x - target.x;
+          const dy = node.y - target.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const maxDist = Math.min(canvas.width, canvas.height) * 0.4;
           
-          // Only draw lines for nearby points
-          if (distance < Math.max(canvas.width, canvas.height) * 0.35) {
-            const opacity = (1 - distance / (Math.max(canvas.width, canvas.height) * 0.35)) * 0.08;
-            ctx.strokeStyle = `rgba(37, 99, 235, ${opacity})`;
+          if (dist < maxDist) {
+            // Calculate opacity based on distance and pulse
+            const baseOpacity = 1 - (dist / maxDist);
+            const pulse = (Math.sin(time * 2 + node.pulsePhase) + 1) * 0.5;
+            const opacity = baseOpacity * (0.3 + pulse * 0.2);
+            
+            // Create gradient for the connection with cooler blues
+            const gradient = ctx.createLinearGradient(node.x, node.y, target.x, target.y);
+            gradient.addColorStop(0, `rgba(71, 85, 105, ${opacity})`);
+            gradient.addColorStop(0.5, `rgba(100, 116, 139, ${opacity * 0.8})`);
+            gradient.addColorStop(1, `rgba(71, 85, 105, ${opacity})`);
+            
+            ctx.strokeStyle = gradient;
             ctx.beginPath();
-            ctx.moveTo(points[i].x, points[i].y);
-            ctx.lineTo(points[j].x, points[j].y);
+            ctx.moveTo(node.x, node.y);
+            ctx.lineTo(target.x, target.y);
             ctx.stroke();
+
+            // Draw flowing particles along connections
+            const numParticles = 2;
+            for (let p = 0; p < numParticles; p++) {
+              const particlePos = ((time * 0.3 + p * 0.5) % 1);
+              const px = node.x + (target.x - node.x) * particlePos;
+              const py = node.y + (target.y - node.y) * particlePos;
+              
+              ctx.fillStyle = `rgba(148, 163, 184, ${opacity * 0.8})`;
+              ctx.beginPath();
+              ctx.arc(px, py, 2, 0, Math.PI * 2);
+              ctx.fill();
+            }
           }
-        }
+        });
+      });
+
+      // Draw nodes with pulsing glow
+      nodes.forEach((node) => {
+        const pulse = (Math.sin(node.pulsePhase) + 1) * 0.5;
+        const nodeSize = 4 + pulse * 3;
+        const glowSize = nodeSize + 8 + pulse * 6;
+        
+        // Outer glow
+        const glowGradient = ctx.createRadialGradient(
+          node.x, node.y, 0,
+          node.x, node.y, glowSize
+        );
+        glowGradient.addColorStop(0, `rgba(148, 163, 184, ${0.4 + pulse * 0.3})`);
+        glowGradient.addColorStop(0.5, `rgba(100, 116, 139, ${0.2 + pulse * 0.2})`);
+        glowGradient.addColorStop(1, "rgba(71, 85, 105, 0)");
+        
+        ctx.fillStyle = glowGradient;
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, glowSize, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Node core
+        const coreGradient = ctx.createRadialGradient(
+          node.x, node.y, 0,
+          node.x, node.y, nodeSize
+        );
+        coreGradient.addColorStop(0, colors.accent);
+        coreGradient.addColorStop(0.5, colors.secondary);
+        coreGradient.addColorStop(1, colors.primary);
+        
+        ctx.fillStyle = coreGradient;
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, nodeSize, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Bright center
+        ctx.fillStyle = colors.glow;
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, nodeSize * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Occasionally rebuild connections for dynamic network
+      if (Math.floor(time * 10) % 300 === 0) {
+        buildConnections();
       }
 
       animationFrame = requestAnimationFrame(draw);
@@ -175,4 +219,3 @@ export default function DynamicBackground() {
     />
   );
 }
-
