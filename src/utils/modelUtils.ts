@@ -102,22 +102,42 @@ export function normalizeWeight(weight: number): number {
 }
 
 /**
- * Get color for weight (blue for positive, red for negative)
+ * Get color for weight visualization
+ * - Positive weights: shades of blue (brighter/darker blue for larger magnitudes)
+ * - Negative weights: shades of grey (darker grey for larger absolute values)
+ * - Zero weights: neutral grey
  */
 export function getWeightColor(weight: number, opacity: number = 1): string {
   const clampedOpacity = Math.max(0, Math.min(1, opacity));
+  const absWeight = Math.min(Math.abs(weight), 1);
+  
   if (weight > 0) {
-    // Positive weights: shades of blue (brighter for larger weights)
-    const intensity = Math.min(Math.abs(weight), 1);
-    const alpha = 0.4 + (intensity * 0.6); // Range from 0.4 to 1.0
-    return `rgba(74, 144, 226, ${alpha * clampedOpacity})`;
+    // Positive weights: shades of blue
+    // Light blue (#93c5fd) for small weights → Dark blue (#1e40af) for large weights
+    const intensity = absWeight; // 0 to 1
+    
+    // Interpolate between light blue and dark blue
+    const r = Math.round(147 - (intensity * 113)); // 147 -> 34
+    const g = Math.round(197 - (intensity * 157)); // 197 -> 40
+    const b = Math.round(253 - (intensity * 163)); // 253 -> 90
+    
+    const alpha = 0.5 + (intensity * 0.5); // Range from 0.5 to 1.0
+    return `rgba(${r}, ${g}, ${b}, ${alpha * clampedOpacity})`;
   } else if (weight < 0) {
-    // Negative weights: shades of red (brighter for larger absolute values)
-    const intensity = Math.min(Math.abs(weight), 1);
-    const alpha = 0.4 + (intensity * 0.6); // Range from 0.4 to 1.0
-    return `rgba(255, 65, 54, ${alpha * clampedOpacity})`;
+    // Negative weights: shades of grey
+    // Light grey for small absolute values → Dark grey/black for large absolute values
+    const intensity = absWeight;
+    
+    // Interpolate between light grey (#cbd5e1) and dark grey (#475569)
+    const r = Math.round(203 - (intensity * 128)); // 203 -> 71
+    const g = Math.round(213 - (intensity * 128)); // 213 -> 85
+    const b = Math.round(225 - (intensity * 112)); // 225 -> 105
+    
+    const alpha = 0.4 + (intensity * 0.5); // Range from 0.4 to 0.9
+    return `rgba(${r}, ${g}, ${b}, ${alpha * clampedOpacity})`;
   } else {
-    return `rgba(170, 170, 170, ${0.5 * clampedOpacity})`;
+    // Zero weight: neutral grey
+    return `rgba(148, 163, 184, ${0.5 * clampedOpacity})`; // #94a3b8 at 50% opacity
   }
 }
 

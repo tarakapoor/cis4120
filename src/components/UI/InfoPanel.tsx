@@ -40,9 +40,9 @@ export default function InfoPanel({
           width: "24px",
           height: "24px",
           borderRadius: "50%",
-          border: "2px solid #4a90e2",
-          background: isOpen ? "#4a90e2" : "white",
-          color: isOpen ? "white" : "#4a90e2",
+          border: "2px solid #2563eb",
+          background: isOpen ? "#2563eb" : "white",
+          color: isOpen ? "white" : "#2563eb",
           fontSize: "16px",
           fontWeight: "bold",
           cursor: "pointer",
@@ -82,7 +82,7 @@ export default function InfoPanel({
               ...positionStyles[position],
               ...sizeStyles[size],
               background: "white",
-              border: "2px solid #4a90e2",
+              border: "2px solid #2563eb",
               borderRadius: "8px",
               padding: "20px",
               boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
@@ -93,7 +93,7 @@ export default function InfoPanel({
             onClick={(e) => e.stopPropagation()}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "12px" }}>
-              <h3 style={{ margin: 0, color: "#4a90e2", fontSize: "18px" }}>{title}</h3>
+              <h3 style={{ margin: 0, color: "#2563eb", fontSize: "18px", fontWeight: "600" }}>{title}</h3>
               <button
                 onClick={() => setIsOpen(false)}
                 style={{
@@ -112,7 +112,7 @@ export default function InfoPanel({
               </button>
             </div>
             
-            <div style={{ fontSize: "14px", lineHeight: "1.6", color: "#333" }}>
+            <div style={{ fontSize: "14px", lineHeight: "1.6", color: "#475569" }}>
               {content}
             </div>
           </div>

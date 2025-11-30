@@ -35,7 +35,7 @@ export default function TermDefinition({ term, children, style }: TermDefinition
       <span
         onClick={handleClick}
         style={{
-          color: "#4a90e2",
+          color: "#2563eb",
           textDecoration: "underline",
           textDecorationStyle: "dashed",
           cursor: "help",
@@ -70,7 +70,7 @@ export default function TermDefinition({ term, children, style }: TermDefinition
               top: `${Math.min(position.y, window.innerHeight - 200)}px`,
               maxWidth: "320px",
               background: "white",
-              border: "2px solid #4a90e2",
+              border: "2px solid #2563eb",
               borderRadius: "8px",
               padding: "16px",
               boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
@@ -81,7 +81,7 @@ export default function TermDefinition({ term, children, style }: TermDefinition
             onClick={(e) => e.stopPropagation()}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
-              <strong style={{ color: "#4a90e2", fontSize: "16px" }}>{definition.term}</strong>
+              <strong style={{ color: "#2563eb", fontSize: "16px", fontWeight: "600" }}>{definition.term}</strong>
               <button
                 onClick={handleClose}
                 style={{
@@ -100,12 +100,12 @@ export default function TermDefinition({ term, children, style }: TermDefinition
               </button>
             </div>
             
-            <div style={{ margin: "8px 0", color: "#333" }}>{definition.definition}</div>
+            <div style={{ margin: "8px 0", color: "#475569" }}>{definition.definition}</div>
             
             {definition.example && (
-              <div style={{ marginTop: "12px", padding: "8px", background: "#f5f5f5", borderRadius: "4px" }}>
-                <strong style={{ fontSize: "12px", color: "#666" }}>Example:</strong>
-                <div style={{ margin: "4px 0 0 0", fontSize: "13px", color: "#555", fontStyle: "italic" }}>
+              <div style={{ marginTop: "12px", padding: "8px", background: "#f8fafc", borderRadius: "4px", border: "1px solid #e2e8f0" }}>
+                <strong style={{ fontSize: "12px", color: "#64748b" }}>Example:</strong>
+                <div style={{ margin: "4px 0 0 0", fontSize: "13px", color: "#475569", fontStyle: "italic" }}>
                   {definition.example}
                 </div>
               </div>
@@ -113,8 +113,8 @@ export default function TermDefinition({ term, children, style }: TermDefinition
 
             {definition.relatedTerms && definition.relatedTerms.length > 0 && (
               <div style={{ marginTop: "12px", fontSize: "12px" }}>
-                <strong style={{ color: "#666" }}>Related terms: </strong>
-                <span style={{ color: "#888" }}>
+                <strong style={{ color: "#64748b" }}>Related terms: </strong>
+                <span style={{ color: "#94a3b8" }}>
                   {definition.relatedTerms.join(", ")}
                 </span>
               </div>

@@ -111,9 +111,9 @@ export default function NetworkGraph({ model }: any) {
       .attr("y1", (d: any) => d.source.y)
       .attr("x2", (d: any) => d.target.x)
       .attr("y2", (d: any) => d.target.y)
-      .attr("stroke", "#4a90e2") // All edges blue
-      .attr("stroke-width", 1)
-      .attr("opacity", 0.15) // Very faded by default
+        .attr("stroke", (d: any) => getWeightColor(d.weight, 0.3)) // Color based on weight sign
+        .attr("stroke-width", (d: any) => 0.5 + (Math.abs(d.weight) * 1.5)) // Thickness based on magnitude
+        .attr("opacity", 0.4) // Base opacity
       .style("cursor", "pointer")
       .on("click", (event, d) => {
         event.stopPropagation();
@@ -129,8 +129,8 @@ export default function NetworkGraph({ model }: any) {
       .attr("cx", (d: any) => d.x)
       .attr("cy", (d: any) => d.y)
       .attr("r", 11)
-      .attr("fill", "#4a90e2")
-      .attr("opacity", 0.3) // Faded by default
+      .attr("fill", "#3b82f6")
+      .attr("opacity", 0.4) // Faded by default
       .style("cursor", "pointer")
 
       // Tooltip
@@ -154,13 +154,13 @@ export default function NetworkGraph({ model }: any) {
       if (!selected) {
         // Nothing selected - everything stays faded
         linkElems
-          .attr("stroke", "#4a90e2") // All edges blue
-          .attr("stroke-width", 1)
-          .attr("opacity", 0.15);
+          .attr("stroke", (d: any) => getWeightColor(d.weight, 0.3)) // Color based on weight sign
+          .attr("stroke-width", (d: any) => 0.5 + (Math.abs(d.weight) * 1.5)) // Thickness based on magnitude
+          .attr("opacity", 0.3);
 
         nodeElems
-          .attr("fill", "#4a90e2")
-          .attr("opacity", 0.3);
+          .attr("fill", "#93c5fd")
+          .attr("opacity", 0.4);
         return;
       }
 
@@ -178,27 +178,32 @@ export default function NetworkGraph({ model }: any) {
       nodeElems
         .attr("fill", (d: any) =>
           d.id === selected
-            ? "#ff4136" // selected = red
+            ? "#1e40af" // selected = dark blue
             : connectedNodeIds.has(d.id)
-            ? "#ff9f43" // connected = orange
-            : "#4a90e2" // others = blue
+            ? "#3b82f6" // connected = medium blue
+            : "#93c5fd" // others = light blue
         )
-        .attr("opacity", (d: any) => (connectedNodeIds.has(d.id) ? 1 : 0.1));
+        .attr("opacity", (d: any) => (connectedNodeIds.has(d.id) ? 1 : 0.15));
 
-      // Highlight edges - all blue, just varying opacity and thickness
+      // Highlight edges - color based on weight sign, thickness based on magnitude
       linkElems
-        .attr("stroke", "#4a90e2") // All edges blue
+        .attr("stroke", (d: any) => {
+          if (d.source.id === selected || d.target.id === selected) {
+            return getWeightColor(d.weight, 1.0); // Full opacity for selected connections
+          }
+          return getWeightColor(d.weight, 0.2); // Faded for non-selected
+        })
         .attr("stroke-width", (d: any) => {
           if (d.source.id === selected || d.target.id === selected) {
-            return getWeightStrokeWidth(d.weight);
+            return getWeightStrokeWidth(d.weight); // Thicker for selected, scaled by magnitude
           }
-          return 1;
+          return 0.5 + (Math.abs(d.weight) * 1.0); // Thinner for non-selected, still scaled
         })
         .attr("opacity", (d: any) => {
           if (d.source.id === selected || d.target.id === selected) {
-            return 1;
+            return 0.95; // Nearly full opacity for selected
           }
-          return 0.05; // Very faded for non-connected edges
+          return 0.15; // Very faded for non-connected edges
         });
     };
 
@@ -220,10 +225,10 @@ export default function NetworkGraph({ model }: any) {
         .attr("x", (d: any, i: number) => (i + 1) * layerSpacing)
         .attr("y", 30)
         .attr("text-anchor", "middle")
-        .attr("font-family", "Inter, system-ui, -apple-system, sans-serif")
+        .attr("font-family", "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif")
         .attr("font-size", "14px")
         .attr("font-weight", "600")
-        .attr("fill", "#2c3e50")
+        .attr("fill", "#1e293b")
         .text((d: any, i: number) => layerLabels[i]);
       
       // Feature count labels
@@ -235,9 +240,9 @@ export default function NetworkGraph({ model }: any) {
         .attr("x", (d: any, i: number) => (i + 1) * layerSpacing)
         .attr("y", 50)
         .attr("text-anchor", "middle")
-        .attr("font-family", "Inter, system-ui, -apple-system, sans-serif")
+        .attr("font-family", "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif")
         .attr("font-size", "12px")
-        .attr("fill", "#7f8c8d")
+        .attr("fill", "#64748b")
         .text((d: any) => `${d.size} features`);
     }
     
@@ -259,9 +264,9 @@ export default function NetworkGraph({ model }: any) {
         })
         .attr("y", (d: any) => d.y + 4)
         .attr("text-anchor", (d: any) => d.layer === 0 ? "end" : "start")
-        .attr("font-family", "Inter, system-ui, -apple-system, sans-serif")
+        .attr("font-family", "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif")
         .attr("font-size", "11px")
-        .attr("fill", "#34495e")
+        .attr("fill", "#475569")
         .style("cursor", "pointer")
         .text((d: any) => nodeLabels[d.id] || d.id)
         .on("click", (event, d) => {
@@ -276,10 +281,10 @@ export default function NetworkGraph({ model }: any) {
       <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "20px", overflow: "auto" }}>
         <div style={{ marginBottom: "16px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
           <div style={{ flex: 1 }}>
-            <h2 style={{ margin: "0 0 8px 0", fontSize: "24px", fontFamily: "Inter, system-ui, -apple-system, sans-serif", fontWeight: "600", color: "#2c3e50" }}>
+            <h2 style={{ margin: "0 0 8px 0", fontSize: "24px", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", fontWeight: "600", color: "#1e293b" }}>
               <TermDefinition term="neural network">Neural Network</TermDefinition> Visualization
             </h2>
-            <p style={{ margin: 0, color: "#7f8c8d", fontSize: "14px", fontFamily: "Inter, system-ui, -apple-system, sans-serif" }}>
+            <p style={{ margin: 0, color: "#64748b", fontSize: "14px", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
               Click on <TermDefinition term="neuron">neurons</TermDefinition> to adjust <TermDefinition term="weight">weights</TermDefinition> and steer the <TermDefinition term="policy">policy</TermDefinition>
             </p>
           </div>
@@ -288,12 +293,12 @@ export default function NetworkGraph({ model }: any) {
               onClick={() => setShowLabels(!showLabels)}
               style={{
                 padding: "8px 16px",
-                background: showLabels ? "#4a90e2" : "white",
-                color: showLabels ? "white" : "#4a90e2",
-                border: "2px solid #4a90e2",
+                background: showLabels ? "#2563eb" : "white",
+                color: showLabels ? "white" : "#2563eb",
+                border: "2px solid #2563eb",
                 borderRadius: "6px",
                 cursor: "pointer",
-                fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+                fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
                 fontSize: "13px",
                 fontWeight: "500",
                 transition: "all 0.2s ease"
@@ -305,12 +310,12 @@ export default function NetworkGraph({ model }: any) {
               onClick={() => setShowNodeLabels(!showNodeLabels)}
               style={{
                 padding: "8px 16px",
-                background: showNodeLabels ? "#8bc34a" : "white",
-                color: showNodeLabels ? "white" : "#8bc34a",
-                border: "2px solid #8bc34a",
+                background: showNodeLabels ? "#2563eb" : "white",
+                color: showNodeLabels ? "white" : "#2563eb",
+                border: "2px solid #2563eb",
                 borderRadius: "6px",
                 cursor: "pointer",
-                fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+                fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
                 fontSize: "13px",
                 fontWeight: "500",
                 transition: "all 0.2s ease"
@@ -321,14 +326,16 @@ export default function NetworkGraph({ model }: any) {
         <InfoPanel
           title="How to Use the Network Visualization & Weight Adjustment"
           content={
-            <div style={{ fontFamily: "Inter, system-ui, -apple-system, sans-serif" }}>
+            <div style={{ fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
               <p style={{ marginTop: 0, lineHeight: "1.6" }}>
                 <strong>Understanding the Visualization:</strong>
               </p>
               <ul style={{ paddingLeft: "20px", margin: "8px 0", lineHeight: "1.6" }}>
                 <li><strong>Circles</strong> represent <TermDefinition term="neuron">neurons</TermDefinition> (nodes) in the network</li>
                 <li><strong>Lines</strong> represent <TermDefinition term="edge">edges</TermDefinition> (connections) with <TermDefinition term="weight">weights</TermDefinition></li>
-                <li><strong>Thicker edges</strong> indicate stronger <TermDefinition term="weight">weights</TermDefinition></li>
+                <li><strong>Color:</strong> Blue edges = positive weights, Grey edges = negative weights</li>
+                <li><strong>Thickness:</strong> Thicker edges = larger weight magnitude (stronger connections)</li>
+                <li><strong>Brightness:</strong> Brighter/darker shades indicate larger absolute weight values</li>
                 <li><strong>Red nodes</strong> are selected neurons</li>
                 <li><strong>Orange nodes</strong> are connected to the selected neuron</li>
               </ul>
@@ -342,14 +349,14 @@ export default function NetworkGraph({ model }: any) {
                 <li><strong>Click "Show Node Labels"</strong> to see input/output feature labels</li>
                 <li><strong>Click on a node label</strong> to edit it (e.g., "Speed", "Torque")</li>
                 <li><strong>Adjust weights</strong> using sliders in the right panel to <TermDefinition term="steering">steer</TermDefinition> the <TermDefinition term="policy">policy</TermDefinition></li>
-                <li><strong>Watch edges update</strong> in real-time as you change weights</li>
+                <li><strong>Watch edges update</strong> in real-time as you change weights - color and thickness reflect weight sign and magnitude</li>
                 <li><strong>Compare before/after</strong> values to see your changes</li>
                 <li><strong>Hover over neurons</strong> to see their IDs</li>
                 <li><strong>Scroll to zoom</strong> and <strong>drag to pan</strong> the visualization</li>
               </ul>
 
-              <div style={{ marginTop: "16px", padding: "16px", background: "#e3f2fd", borderRadius: "8px", borderLeft: "4px solid #2196f3" }}>
-                <strong style={{ color: "#1976d2" }}>💡 Steering the Policy:</strong>
+              <div style={{ marginTop: "16px", padding: "16px", background: "#eff6ff", borderRadius: "8px", borderLeft: "4px solid #2563eb" }}>
+                <strong style={{ color: "#1e40af" }}>💡 Steering the Policy:</strong>
                 <p style={{ margin: "8px 0 0 0", fontSize: "14px", lineHeight: "1.6" }}>
                   By adjusting <TermDefinition term="weight">weights</TermDefinition>, you can <TermDefinition term="steering">steer</TermDefinition> how the network behaves. 
                   This is called <TermDefinition term="perturbation">perturbation</TermDefinition> - making small changes to see how they affect the network's decisions. 
@@ -357,8 +364,8 @@ export default function NetworkGraph({ model }: any) {
                 </p>
               </div>
 
-              <div style={{ marginTop: "12px", padding: "16px", background: "#fff3cd", borderRadius: "8px", borderLeft: "4px solid #ffc107" }}>
-                <strong style={{ color: "#f57c00" }}>🎯 Best Practices for Weight Adjustment:</strong>
+              <div style={{ marginTop: "12px", padding: "16px", background: "#f8fafc", borderRadius: "8px", borderLeft: "4px solid #64748b" }}>
+                <strong style={{ color: "#475569" }}>🎯 Best Practices for Weight Adjustment:</strong>
                 <ul style={{ margin: "8px 0 0 0", paddingLeft: "20px", fontSize: "14px", lineHeight: "1.6" }}>
                   <li>Start with small <TermDefinition term="perturbation">perturbations</TermDefinition> to see gradual effects</li>
                   <li>Watch how edge thickness and color change as you adjust weights</li>
@@ -368,8 +375,8 @@ export default function NetworkGraph({ model }: any) {
                 </ul>
               </div>
 
-              <div style={{ marginTop: "12px", padding: "16px", background: "#f1f8e9", borderRadius: "8px", borderLeft: "4px solid #8bc34a" }}>
-                <strong style={{ color: "#689f38" }}>📚 Key Terms:</strong>
+              <div style={{ marginTop: "12px", padding: "16px", background: "#f1f5f9", borderRadius: "8px", borderLeft: "4px solid #475569" }}>
+                <strong style={{ color: "#334155" }}>📚 Key Terms:</strong>
                 <p style={{ margin: "8px 0 0 0", fontSize: "14px", lineHeight: "1.6" }}>
                   Click on any underlined term (like <TermDefinition term="weight">weight</TermDefinition>, <TermDefinition term="steering">steering</TermDefinition>, or <TermDefinition term="policy">policy</TermDefinition>) 
                   throughout the interface to learn what it means in simple terms.
@@ -403,16 +410,16 @@ export default function NetworkGraph({ model }: any) {
                 background: "white",
                 padding: "8px 12px",
                 borderRadius: "6px",
-                border: "2px solid #4a90e2",
+                border: "2px solid #2563eb",
                 fontSize: "13px",
-                fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+                fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
                 fontWeight: "500",
                 pointerEvents: "none",
                 zIndex: 10,
                 boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
               }}
             >
-              <strong style={{ color: "#2c3e50" }}>Neuron:</strong> <span style={{ color: "#4a90e2" }}>{tooltip.text}</span>
+              <strong style={{ color: "#1e293b" }}>Neuron:</strong> <span style={{ color: "#2563eb" }}>{tooltip.text}</span>
             </div>
           )}
           
@@ -426,17 +433,17 @@ export default function NetworkGraph({ model }: any) {
                 background: "white",
                 padding: "24px",
                 borderRadius: "12px",
-                border: "2px solid #4a90e2",
+                border: "2px solid #2563eb",
                 boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
                 zIndex: 100,
                 minWidth: "300px",
-                fontFamily: "Inter, system-ui, -apple-system, sans-serif"
+                fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
               }}
             >
-              <h4 style={{ margin: "0 0 16px 0", fontSize: "16px", fontWeight: "600", color: "#2c3e50" }}>
+              <h4 style={{ margin: "0 0 16px 0", fontSize: "16px", fontWeight: "600", color: "#1e293b" }}>
                 Edit Node Label
               </h4>
-              <p style={{ margin: "0 0 12px 0", fontSize: "13px", color: "#7f8c8d" }}>
+              <p style={{ margin: "0 0 12px 0", fontSize: "13px", color: "#64748b" }}>
                 Node: <strong>{editingLabel}</strong>
               </p>
               <input
@@ -459,11 +466,11 @@ export default function NetworkGraph({ model }: any) {
                   border: "2px solid #e0e0e0",
                   borderRadius: "6px",
                   fontSize: "14px",
-                  fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+                  fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
                   marginBottom: "12px",
                   outline: "none"
                 }}
-                onFocus={(e) => e.target.style.borderColor = "#4a90e2"}
+                onFocus={(e) => e.target.style.borderColor = "#2563eb"}
                 onBlur={(e) => e.target.style.borderColor = "#e0e0e0"}
               />
               <div style={{ display: "flex", gap: "8px", justifyContent: "flex-end" }}>
@@ -472,13 +479,13 @@ export default function NetworkGraph({ model }: any) {
                   style={{
                     padding: "8px 16px",
                     background: "white",
-                    color: "#7f8c8d",
+                    color: "#64748b",
                     border: "2px solid #e0e0e0",
                     borderRadius: "6px",
                     cursor: "pointer",
                     fontSize: "13px",
                     fontWeight: "500",
-                    fontFamily: "Inter, system-ui, -apple-system, sans-serif"
+                    fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
                   }}
                 >
                   Cancel
@@ -493,20 +500,20 @@ export default function NetworkGraph({ model }: any) {
                   }}
                   style={{
                     padding: "8px 16px",
-                    background: "#4a90e2",
+                    background: "#2563eb",
                     color: "white",
-                    border: "2px solid #4a90e2",
+                    border: "2px solid #2563eb",
                     borderRadius: "6px",
                     cursor: "pointer",
                     fontSize: "13px",
                     fontWeight: "500",
-                    fontFamily: "Inter, system-ui, -apple-system, sans-serif"
+                    fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
                   }}
                 >
                   Save
                 </button>
               </div>
-              <p style={{ margin: "12px 0 0 0", fontSize: "12px", color: "#95a5a6", fontStyle: "italic" }}>
+                <p style={{ margin: "12px 0 0 0", fontSize: "12px", color: "#94a3b8", fontStyle: "italic" }}>
                 Press Enter to save, Escape to cancel
               </p>
             </div>
@@ -525,17 +532,19 @@ export default function NetworkGraph({ model }: any) {
             marginTop: "16px",
             marginBottom: "16px",
             padding: "16px",
-            background: "linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%)",
-            border: "2px solid #4a90e2",
+                background: "#eff6ff",
+                border: "2px solid #2563eb",
             borderRadius: "8px",
             fontSize: "14px",
-            fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+            fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
             flexShrink: 0
           }}>
-            <strong style={{ color: "#2c3e50", fontSize: "15px" }}>Selected:</strong> <span style={{ color: "#4a90e2", fontWeight: "600" }}>{selected}</span>
-            <p style={{ margin: "8px 0 0 0", fontSize: "13px", color: "#34495e", lineHeight: "1.5" }}>
+            <strong style={{ color: "#1e293b", fontSize: "15px" }}>Selected:</strong> <span style={{ color: "#2563eb", fontWeight: "600" }}>{selected}</span>
+            <p style={{ margin: "8px 0 0 0", fontSize: "13px", color: "#475569", lineHeight: "1.5" }}>
               Adjust the <TermDefinition term="weight">weights</TermDefinition> in the panel on the right to see how changes affect the network. 
-              <TermDefinition term="edge">Edges</TermDefinition> update in real-time: thicker and brighter lines indicate stronger connections.
+              <TermDefinition term="edge">Edges</TermDefinition> update in real-time: 
+              <strong>Blue edges</strong> indicate positive weights, <strong>grey edges</strong> indicate negative weights. 
+              <strong>Thicker edges</strong> represent larger weight magnitudes (stronger connections).
             </p>
           </div>
         )}
@@ -545,21 +554,21 @@ export default function NetworkGraph({ model }: any) {
             marginTop: selected ? "0" : "16px",
             marginBottom: "16px",
             padding: "16px",
-            background: "#f1f8e9",
-            border: "2px solid #8bc34a",
+            background: "#f1f5f9",
+            border: "2px solid #64748b",
             borderRadius: "8px",
             fontSize: "13px",
-            fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+            fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
             flexShrink: 0
           }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-              <strong style={{ color: "#2c3e50", fontSize: "14px" }}>💡 Node Labeling Tips:</strong>
+              <strong style={{ color: "#1e293b", fontSize: "14px" }}>💡 Node Labeling Tips:</strong>
             </div>
-            <p style={{ margin: "0 0 8px 0", color: "#34495e", lineHeight: "1.5" }}>
+            <p style={{ margin: "0 0 8px 0", color: "#475569", lineHeight: "1.5" }}>
               Click on any input or output node label to customize it. Give meaningful names like "Velocity", "Position", "Action 1", etc.
             </p>
             <details style={{ marginTop: "8px" }}>
-              <summary style={{ cursor: "pointer", color: "#689f38", fontWeight: "500", userSelect: "none" }}>
+              <summary style={{ cursor: "pointer", color: "#475569", fontWeight: "500", userSelect: "none" }}>
                 Quick Label All Nodes
               </summary>
               <div style={{ marginTop: "12px", padding: "12px", background: "white", borderRadius: "6px" }}>
@@ -575,7 +584,7 @@ export default function NetworkGraph({ model }: any) {
                     border: "1px solid #e0e0e0",
                     borderRadius: "4px",
                     fontSize: "12px",
-                    fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+                    fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
                     marginBottom: "8px"
                   }}
                   onKeyDown={(e) => {
@@ -602,7 +611,7 @@ export default function NetworkGraph({ model }: any) {
                     }
                   }}
                 />
-                <p style={{ margin: "0", fontSize: "11px", color: "#95a5a6", fontStyle: "italic" }}>
+                <p style={{ margin: "0", fontSize: "11px", color: "#94a3b8", fontStyle: "italic" }}>
                   Press Enter to apply. First {modelWithWeights.layers[0].size} labels → inputs, 
                   next {modelWithWeights.layers[modelWithWeights.layers.length - 1].size} → outputs
                 </p>

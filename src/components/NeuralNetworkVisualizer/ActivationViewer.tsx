@@ -84,7 +84,7 @@ export default function ActivationViewer({ activations, model, onTimestepChange 
 
   if (!activations || activations.length === 0) {
     return (
-      <div style={{ padding: 20, textAlign: "center", color: "#666" }}>
+      <div style={{ padding: 20, textAlign: "center", color: "#64748b" }}>
         No activation data available. Run the model with "Capture Activations" enabled.
       </div>
     );
@@ -93,8 +93,8 @@ export default function ActivationViewer({ activations, model, onTimestepChange 
   const currentData = activations[currentTimestep];
 
   return (
-    <div style={{ padding: 20, borderTop: "1px solid #ddd" }}>
-      <h3 style={{ margin: "0 0 16px 0", fontSize: 18 }}>Activation Viewer</h3>
+    <div style={{ padding: 20, borderTop: "1px solid #e2e8f0", background: "#ffffff" }}>
+      <h3 style={{ margin: "0 0 16px 0", fontSize: 18, fontWeight: "600", color: "#1e293b" }}>Activation Viewer</h3>
 
       {/* Controls */}
       <div style={{
@@ -103,19 +103,21 @@ export default function ActivationViewer({ activations, model, onTimestepChange 
         gap: 12,
         marginBottom: 16,
         padding: 12,
-        background: "#f8f9fa",
-        borderRadius: 4
+        background: "#f8fafc",
+        borderRadius: 4,
+        border: "1px solid #e2e8f0"
       }}>
         <button
           onClick={reset}
           style={{
             padding: "6px 12px",
-            background: "#6c757d",
+            background: "#64748b",
             color: "white",
             border: "none",
             borderRadius: 4,
             cursor: "pointer",
-            fontSize: 14
+            fontSize: 14,
+            transition: "all 0.2s"
           }}
         >
           ⏮ Reset
@@ -126,12 +128,13 @@ export default function ActivationViewer({ activations, model, onTimestepChange 
           disabled={currentTimestep === 0}
           style={{
             padding: "6px 12px",
-            background: currentTimestep === 0 ? "#ccc" : "#007bff",
+            background: currentTimestep === 0 ? "#cbd5e1" : "#2563eb",
             color: "white",
             border: "none",
             borderRadius: 4,
             cursor: currentTimestep === 0 ? "not-allowed" : "pointer",
-            fontSize: 14
+            fontSize: 14,
+            transition: "all 0.2s"
           }}
         >
           ◀ Step
@@ -141,13 +144,14 @@ export default function ActivationViewer({ activations, model, onTimestepChange 
           onClick={togglePlay}
           style={{
             padding: "8px 16px",
-            background: "#28a745",
+            background: "#2563eb",
             color: "white",
             border: "none",
             borderRadius: 4,
             cursor: "pointer",
             fontSize: 16,
-            fontWeight: 600
+            fontWeight: 600,
+            transition: "all 0.2s"
           }}
         >
           {isPlaying ? "⏸ Pause" : "▶ Play"}
@@ -158,12 +162,13 @@ export default function ActivationViewer({ activations, model, onTimestepChange 
           disabled={currentTimestep === maxTimestep}
           style={{
             padding: "6px 12px",
-            background: currentTimestep === maxTimestep ? "#ccc" : "#007bff",
+            background: currentTimestep === maxTimestep ? "#cbd5e1" : "#2563eb",
             color: "white",
             border: "none",
             borderRadius: 4,
             cursor: currentTimestep === maxTimestep ? "not-allowed" : "pointer",
-            fontSize: 14
+            fontSize: 14,
+            transition: "all 0.2s"
           }}
         >
           Step ▶
@@ -195,7 +200,7 @@ export default function ActivationViewer({ activations, model, onTimestepChange 
           <span style={{ fontSize: 14, fontWeight: 500 }}>
             Timestep: {currentTimestep} / {maxTimestep}
           </span>
-          <span style={{ fontSize: 13, color: "#666" }}>
+          <span style={{ fontSize: 13, color: "#64748b" }}>
             {activations.length} frames captured
           </span>
         </div>
@@ -211,7 +216,7 @@ export default function ActivationViewer({ activations, model, onTimestepChange 
             height: 8,
             borderRadius: 4,
             appearance: "none",
-            background: `linear-gradient(to right, #007bff 0%, #007bff ${(currentTimestep / maxTimestep) * 100}%, #ddd ${(currentTimestep / maxTimestep) * 100}%, #ddd 100%)`
+            background: `linear-gradient(to right, #2563eb 0%, #2563eb ${(currentTimestep / maxTimestep) * 100}%, #cbd5e1 ${(currentTimestep / maxTimestep) * 100}%, #cbd5e1 100%)`
           }}
         />
       </div>
@@ -224,11 +229,12 @@ export default function ActivationViewer({ activations, model, onTimestepChange 
       }}>
         <div style={{
           padding: 12,
-          background: "#e8f4f8",
+          background: "#eff6ff",
           borderRadius: 4,
-          fontSize: 13
+          fontSize: 13,
+          border: "1px solid #bfdbfe"
         }}>
-          <div style={{ fontWeight: 600, marginBottom: 8 }}>Observation</div>
+          <div style={{ fontWeight: 600, marginBottom: 8, color: "#1e293b" }}>Observation</div>
           <div style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(60px, 1fr))",
@@ -253,11 +259,12 @@ export default function ActivationViewer({ activations, model, onTimestepChange 
 
         <div style={{
           padding: 12,
-          background: "#d4edda",
+          background: "#f0f9ff",
           borderRadius: 4,
-          fontSize: 13
+          fontSize: 13,
+          border: "1px solid #bae6fd"
         }}>
-          <div style={{ fontWeight: 600, marginBottom: 8 }}>Action</div>
+          <div style={{ fontWeight: 600, marginBottom: 8, color: "#1e293b" }}>Action</div>
           <div style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(60px, 1fr))",
@@ -283,7 +290,7 @@ export default function ActivationViewer({ activations, model, onTimestepChange 
 
       {/* Layer Activations */}
       <div style={{ marginTop: 16 }}>
-        <div style={{ fontWeight: 600, marginBottom: 8 }}>Layer Activations</div>
+        <div style={{ fontWeight: 600, marginBottom: 8, color: "#1e293b" }}>Layer Activations</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {Object.keys(currentData)
             .filter(key => key.startsWith('layer_'))
@@ -297,12 +304,13 @@ export default function ActivationViewer({ activations, model, onTimestepChange 
                   key={layerKey}
                   style={{
                     padding: 10,
-                    background: "#fff3cd",
+                    background: "#f8fafc",
                     borderRadius: 4,
-                    fontSize: 12
+                    fontSize: 12,
+                    border: "1px solid #e2e8f0"
                   }}
                 >
-                  <div style={{ fontWeight: 600, marginBottom: 6 }}>
+                  <div style={{ fontWeight: 600, marginBottom: 6, color: "#1e293b" }}>
                     {layerKey.replace('_', ' ')} ({layerData.length} neurons)
                   </div>
                   <div style={{
@@ -315,8 +323,8 @@ export default function ActivationViewer({ activations, model, onTimestepChange 
                     {layerData.map((val: number, idx: number) => {
                       const intensity = Math.min(Math.abs(val), 1);
                       const color = val >= 0
-                        ? `rgba(74, 144, 226, ${intensity})`
-                        : `rgba(255, 65, 54, ${intensity})`;
+                        ? `rgba(37, 99, 235, ${intensity})`
+                        : `rgba(71, 85, 105, ${intensity})`;
 
                       return (
                         <div
