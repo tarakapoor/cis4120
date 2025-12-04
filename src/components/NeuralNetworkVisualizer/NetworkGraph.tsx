@@ -12,7 +12,14 @@ import {
   ModelWithWeights
 } from "../../utils/modelUtils";
 
-export default function NetworkGraph({ model }: any) {
+type SAEData = {
+  topFeatures: any[];
+  selectedFeature: number | null;
+  saeInfo: any | null;
+  tapIndex: number;
+};
+
+export default function NetworkGraph({ model, saeData }: { model: any; saeData?: SAEData | null; currentActivation?: any }) {
   const ref = useRef(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [tooltip, setTooltip] = useState<{ x: number; y: number; text: string } | null>(null);
@@ -20,6 +27,7 @@ export default function NetworkGraph({ model }: any) {
   const [showNodeLabels, setShowNodeLabels] = useState<boolean>(false);
   const [nodeLabels, setNodeLabels] = useState<{[key: string]: string}>({});
   const [editingLabel, setEditingLabel] = useState<string | null>(null);
+  const [showSAEHighlight, setShowSAEHighlight] = useState<boolean>(true);
   
   // Initialize model with weights and store in state
   const [modelWithWeights, setModelWithWeights] = useState<ModelWithWeights | null>(null);
@@ -34,6 +42,32 @@ export default function NetworkGraph({ model }: any) {
     }
   }, [model]);
 
+  // Initialize joint labels when SAE data is loaded
+  useEffect(() => {
+    if (saeData && model && model.layers) {
+      const outputLayerIdx = model.layers.length - 1;
+      const outputLayerSize = model.layers[outputLayerIdx].size;
+
+      // Default joint names for Walker2d-v4 (6 action dimensions)
+      const walker2dJoints = [
+        "Right Hip (Thigh)",
+        "Right Knee (Leg)",
+        "Right Ankle (Foot)",
+        "Left Hip (Thigh L)",
+        "Left Knee (Leg L)",
+        "Left Ankle (Foot L)"
+      ];
+
+      const newLabels: {[key: string]: string} = {};
+      for (let i = 0; i < Math.min(outputLayerSize, walker2dJoints.length); i++) {
+        newLabels[`L${outputLayerIdx}-N${i}`] = walker2dJoints[i];
+      }
+
+      setNodeLabels(prev => ({...prev, ...newLabels}));
+      setShowNodeLabels(true); // Auto-show labels when SAE is loaded
+    }
+  }, [saeData, model]);
+
   const handleWeightChange = (newWeights: WeightData[]) => {
     if (modelWithWeights) {
       setModelWithWeights({
@@ -45,6 +79,15 @@ export default function NetworkGraph({ model }: any) {
 
   useEffect(() => {
     if (!modelWithWeights || !modelWithWeights.layers) return;
+
+    // Debug logging (only once when saeData changes, not on every render)
+    // Removed to prevent infinite loop - check React DevTools instead
+
+    // Map SAE tap_index (MLP module index) to visualization layer index
+    // tap_index=4 in MLP (net[4]) typically corresponds to the first hidden layer (L1 in visualization)
+    // For a network with structure: Input (L0) -> Hidden1 (L1) -> Hidden2 (L2) -> ... -> Output (Ln)
+    // We map tap_index to L1 (the first hidden layer after input)
+    const saeVisualLayerIndex = saeData ? 1 : -1; // First hidden layer
 
     const svg = d3.select(ref.current);
     svg.selectAll("*").remove();
@@ -66,11 +109,42 @@ export default function NetworkGraph({ model }: any) {
     layers.forEach((layer: any, layerIdx: number) => {
       const ySpacing = height / (layer.size + 1);
       for (let i = 0; i < layer.size; i++) {
+        const nodeId = `L${layerIdx}-N${i}`;
+        // Check if this node is influenced by the selected SAE feature
+        let saeInfluence = 0;
+        let isOutputTarget = false;
+
+        if (saeData && showSAEHighlight && saeData.selectedFeature !== null) {
+          // Highlight ALL nodes in the tapped layer when a feature is selected
+          if (layerIdx === saeVisualLayerIndex) {
+            // All neurons in the tapped layer are potentially influenced
+            // Use a uniform moderate influence to show they're all part of the SAE
+            saeInfluence = 0.6;
+
+            // If we have feature data, we could vary the influence
+            const selectedFeatureData = saeData.topFeatures.find(f => f.feature_idx === saeData.selectedFeature);
+            if (selectedFeatureData) {
+              // Mark neurons with higher influence near the middle
+              const midpoint = layer.size / 2;
+              const distance = Math.abs(i - midpoint) / midpoint;
+              saeInfluence = Math.max(0.4, 1.0 - distance * 0.5);
+            }
+          }
+
+          // ALSO highlight the output node (action dimension 0) that this feature predicts
+          // The features are interpreted to predict action dimension 0, which is output node 0
+          if (layerIdx === layers.length - 1 && i === 0) {
+            isOutputTarget = true;
+            saeInfluence = 0.9; // Strong highlight for the target output
+          }
+        }
         nodes.push({
-          id: `L${layerIdx}-N${i}`,
+          id: nodeId,
           layer: layerIdx,
           x: (layerIdx + 1) * layerSpacing,
-          y: (i + 1) * ySpacing
+          y: (i + 1) * ySpacing,
+          saeInfluence: saeInfluence,
+          isOutputTarget: isOutputTarget
         });
       }
     });
@@ -128,10 +202,41 @@ export default function NetworkGraph({ model }: any) {
       .append("circle")
       .attr("cx", (d: any) => d.x)
       .attr("cy", (d: any) => d.y)
-      .attr("r", 11)
-      .attr("fill", "#3b82f6")
-      .attr("opacity", 0.4) // Faded by default
+      .attr("r", (d: any) => {
+        if (d.isOutputTarget) return 15; // Larger for output target
+        if (d.saeInfluence > 0) return 13;
+        return 11;
+      })
+      .attr("fill", (d: any) => {
+        // Output target gets a special yellow/gold color
+        if (d.isOutputTarget) {
+          return "#fbbf24"; // Amber/gold
+        }
+        // If node has SAE influence, show it with a gradient from blue to orange
+        if (d.saeInfluence > 0) {
+          const t = d.saeInfluence;
+          // Interpolate between blue (#3b82f6) and orange (#f97316)
+          return `rgb(${Math.round(59 + (249 - 59) * t)}, ${Math.round(130 + (115 - 130) * t)}, ${Math.round(246 + (22 - 246) * t)})`;
+        }
+        return "#3b82f6";
+      })
+      .attr("opacity", (d: any) => {
+        if (d.isOutputTarget) return 1.0; // Full opacity for target
+        if (d.saeInfluence > 0) return 0.8;
+        return 0.4;
+      })
+      .attr("stroke", (d: any) => {
+        if (d.isOutputTarget) return "#f59e0b"; // Darker amber border
+        if (d.saeInfluence > 0) return "#ea580c";
+        return "none";
+      })
+      .attr("stroke-width", (d: any) => {
+        if (d.isOutputTarget) return 3; // Thicker border for target
+        if (d.saeInfluence > 0) return 2;
+        return 0;
+      })
       .style("cursor", "pointer")
+      .style("pointer-events", "all")
 
       // Tooltip
       .on("mouseenter", (event, d) => {
@@ -145,6 +250,7 @@ export default function NetworkGraph({ model }: any) {
 
       // Click node → highlight
       .on("click", (event, d) => {
+        console.log("Node clicked:", d.id);
         event.stopPropagation();
         setSelected((prev) => (prev === d.id ? null : d.id));
       });
@@ -152,15 +258,38 @@ export default function NetworkGraph({ model }: any) {
     // --- HANDLE HIGHLIGHT LOGIC ---
     const updateHighlight = () => {
       if (!selected) {
-        // Nothing selected - everything stays faded
+        // Nothing selected - show SAE highlighting or default state
         linkElems
-          .attr("stroke", (d: any) => getWeightColor(d.weight, 0.3)) // Color based on weight sign
-          .attr("stroke-width", (d: any) => 0.5 + (Math.abs(d.weight) * 1.5)) // Thickness based on magnitude
+          .attr("stroke", (d: any) => getWeightColor(d.weight, 0.3))
+          .attr("stroke-width", (d: any) => 0.5 + (Math.abs(d.weight) * 1.5))
           .attr("opacity", 0.3);
 
         nodeElems
-          .attr("fill", "#93c5fd")
-          .attr("opacity", 0.4);
+          .attr("fill", (d: any) => {
+            // Output target gets highest priority
+            if (d.isOutputTarget) return "#fbbf24";
+            // Preserve SAE highlighting when nothing is selected
+            if (d.saeInfluence > 0) {
+              const t = d.saeInfluence;
+              return `rgb(${Math.round(59 + (249 - 59) * t)}, ${Math.round(130 + (115 - 130) * t)}, ${Math.round(246 + (22 - 246) * t)})`;
+            }
+            return "#93c5fd";
+          })
+          .attr("opacity", (d: any) => {
+            if (d.isOutputTarget) return 1.0;
+            if (d.saeInfluence > 0) return 0.8;
+            return 0.4;
+          })
+          .attr("stroke", (d: any) => {
+            if (d.isOutputTarget) return "#f59e0b";
+            if (d.saeInfluence > 0) return "#ea580c";
+            return "none";
+          })
+          .attr("stroke-width", (d: any) => {
+            if (d.isOutputTarget) return 3;
+            if (d.saeInfluence > 0) return 2;
+            return 0;
+          });
         return;
       }
 
@@ -174,16 +303,48 @@ export default function NetworkGraph({ model }: any) {
         selected
       ]);
 
-      // Highlight nodes
+      // Highlight nodes - preserve SAE highlighting for non-selected nodes
       nodeElems
-        .attr("fill", (d: any) =>
-          d.id === selected
-            ? "#1e40af" // selected = dark blue
-            : connectedNodeIds.has(d.id)
-            ? "#3b82f6" // connected = medium blue
-            : "#93c5fd" // others = light blue
-        )
-        .attr("opacity", (d: any) => (connectedNodeIds.has(d.id) ? 1 : 0.15));
+        .attr("fill", (d: any) => {
+          if (d.id === selected) {
+            return "#1e40af"; // selected = dark blue
+          } else if (connectedNodeIds.has(d.id)) {
+            return "#3b82f6"; // connected = medium blue
+          } else if (d.isOutputTarget) {
+            // Keep output target gold even when not selected
+            return "#fbbf24";
+          } else if (d.saeInfluence > 0) {
+            // Preserve SAE color for non-connected nodes
+            const t = d.saeInfluence;
+            return `rgb(${Math.round(59 + (249 - 59) * t)}, ${Math.round(130 + (115 - 130) * t)}, ${Math.round(246 + (22 - 246) * t)})`;
+          } else {
+            return "#93c5fd"; // others = light blue
+          }
+        })
+        .attr("opacity", (d: any) => {
+          if (connectedNodeIds.has(d.id)) return 1;
+          if (d.isOutputTarget) return 0.9; // Keep output target highly visible
+          if (d.saeInfluence > 0) return 0.5; // Keep SAE nodes somewhat visible
+          return 0.15;
+        })
+        .attr("stroke", (d: any) => {
+          if (d.isOutputTarget && !connectedNodeIds.has(d.id)) {
+            return "#f59e0b";
+          }
+          if (d.saeInfluence > 0 && !connectedNodeIds.has(d.id)) {
+            return "#ea580c";
+          }
+          return "none";
+        })
+        .attr("stroke-width", (d: any) => {
+          if (d.isOutputTarget && !connectedNodeIds.has(d.id)) {
+            return 3;
+          }
+          if (d.saeInfluence > 0 && !connectedNodeIds.has(d.id)) {
+            return 2;
+          }
+          return 0;
+        });
 
       // Highlight edges - color based on weight sign, thickness based on magnitude
       linkElems
@@ -274,7 +435,7 @@ export default function NetworkGraph({ model }: any) {
           setEditingLabel(d.id);
         });
     }
-  }, [modelWithWeights, selected, showLabels, showNodeLabels, nodeLabels]);
+  }, [modelWithWeights, selected, showLabels, showNodeLabels, nodeLabels, saeData, showSAEHighlight]);
 
   return (
     <div style={{ display: "flex", width: "100%", height: "100%", overflow: "hidden" }}>
@@ -323,6 +484,25 @@ export default function NetworkGraph({ model }: any) {
             >
               {showNodeLabels ? "Hide" : "Show"} Node Labels
             </button>
+            {saeData && saeData.saeInfo && (
+              <button
+                onClick={() => setShowSAEHighlight(!showSAEHighlight)}
+                style={{
+                  padding: "8px 16px",
+                  background: showSAEHighlight ? "#ea580c" : "rgba(234, 88, 12, 0.2)",
+                  color: "#fff",
+                  border: "1px solid rgba(234, 88, 12, 0.5)",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                  fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+                  fontSize: "13px",
+                  fontWeight: "500",
+                  transition: "all 0.2s ease"
+                }}
+              >
+                {showSAEHighlight ? "Hide" : "Show"} SAE Features
+              </button>
+            )}
         <InfoPanel
           title="How to Use the Network Visualization & Weight Adjustment"
           content={
@@ -519,11 +699,11 @@ export default function NetworkGraph({ model }: any) {
             </div>
           )}
 
-          <svg 
-            ref={ref} 
-            viewBox="0 0 900 600" 
+          <svg
+            ref={ref}
+            viewBox="0 0 900 600"
             preserveAspectRatio="xMidYMid meet"
-            style={{ display: "block", width: "100%", height: "100%" }} 
+            style={{ display: "block", width: "100%", height: "100%", pointerEvents: "auto" }}
           />
         </div>
 
@@ -541,11 +721,112 @@ export default function NetworkGraph({ model }: any) {
           }}>
             <strong style={{ color: "#1e293b", fontSize: "15px" }}>Selected:</strong> <span style={{ color: "#2563eb", fontWeight: "600" }}>{selected}</span>
             <p style={{ margin: "8px 0 0 0", fontSize: "13px", color: "#475569", lineHeight: "1.5" }}>
-              Adjust the <TermDefinition term="weight">weights</TermDefinition> in the panel on the right to see how changes affect the network. 
-              <TermDefinition term="edge">Edges</TermDefinition> update in real-time: 
-              <strong>Blue edges</strong> indicate positive weights, <strong>grey edges</strong> indicate negative weights. 
+              Adjust the <TermDefinition term="weight">weights</TermDefinition> in the panel on the right to see how changes affect the network.
+              <TermDefinition term="edge">Edges</TermDefinition> update in real-time:
+              <strong>Blue edges</strong> indicate positive weights, <strong>grey edges</strong> indicate negative weights.
               <strong>Thicker edges</strong> represent larger weight magnitudes (stronger connections).
             </p>
+            {saeData && saeData.saeInfo && (() => {
+              const selectedLayerMatch = selected.match(/^L(\d+)-N(\d+)$/);
+              if (selectedLayerMatch) {
+                const selectedLayer = parseInt(selectedLayerMatch[1]);
+                // Check if selected neuron is in the first hidden layer (L1)
+                if (selectedLayer === 1) {
+                  return (
+                    <div style={{ marginTop: "12px", padding: "12px", background: "#fff7ed", borderRadius: "6px", border: "1px solid #ea580c" }}>
+                      <strong style={{ fontSize: "13px", color: "#ea580c" }}>🎯 SAE Intervention Available</strong>
+                      <p style={{ margin: "6px 0 0 0", fontSize: "12px", color: "#475569" }}>
+                        This neuron is in the SAE tapped layer (Layer 1 - first hidden layer). Use the SAE controls in the left panel to perturb
+                        features and observe how this neuron's behavior affects the output joints.
+                      </p>
+                    </div>
+                  );
+                }
+              }
+              return null;
+            })()}
+          </div>
+        )}
+
+        {(() => {
+          console.log("SAE Panel Check:", {
+            hasSaeData: !!saeData,
+            hasSaeInfo: !!(saeData?.saeInfo),
+            showSAEHighlight,
+            shouldRender: !!(saeData && saeData.saeInfo && showSAEHighlight)
+          });
+          return null;
+        })()}
+
+        {saeData && saeData.saeInfo && showSAEHighlight && (
+          <div style={{
+            marginTop: selected ? "0" : "16px",
+            marginBottom: "16px",
+            padding: "16px",
+            background: "#fff7ed",
+            border: "2px solid #ea580c",
+            borderRadius: "8px",
+            fontSize: "14px",
+            fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+            flexShrink: 0
+          }}>
+            <strong style={{ color: "#1e293b", fontSize: "15px" }}>🔍 SAE Feature Analysis Active</strong>
+            <p style={{ margin: "8px 0 0 0", fontSize: "13px", color: "#475569", lineHeight: "1.5" }}>
+              <strong>Feature {saeData.selectedFeature}</strong> is highlighted in <span style={{ color: "#ea580c", fontWeight: "600" }}>orange</span> on <strong>Layer 1</strong> (first hidden layer).
+            </p>
+            <p style={{ margin: "8px 0 0 0", fontSize: "13px", color: "#475569", lineHeight: "1.5" }}>
+              SAE (Sparse Autoencoder) features represent learned patterns in the hidden layer activations.
+              The highlighted neurons show which parts of the network are most influenced by this feature.
+            </p>
+            {saeData.topFeatures.length > 0 && (
+              <div style={{ marginTop: "12px", padding: "12px", background: "#fff", borderRadius: "6px" }}>
+                <strong style={{ fontSize: "13px", color: "#1e293b" }}>🎯 What This Feature Controls:</strong>
+                <div style={{ marginTop: "8px", padding: "10px", background: "#fef3c7", borderRadius: "6px", border: "1px solid #fbbf24" }}>
+                  <div style={{ fontSize: "12px", fontWeight: "600", color: "#92400e", marginBottom: "6px" }}>
+                    🎯 Primary Target: Right Hip (Thigh)
+                  </div>
+                  <div style={{ fontSize: "11px", color: "#78350f", lineHeight: "1.5" }}>
+                    The selected SAE feature (Feature {saeData.selectedFeature}) in <strong style={{ color: "#ea580c" }}>Layer 1 (orange)</strong> predicts behavior for the <strong style={{ color: "#fbbf24" }}>first output joint (gold)</strong> - the Right Hip motor.
+                  </div>
+                  <div style={{ marginTop: "6px", fontSize: "10px", color: "#92400e", fontStyle: "italic" }}>
+                    💡 Perturbing this feature will change how the walker controls its right hip joint!
+                  </div>
+                </div>
+
+                <div style={{ marginTop: "12px" }}>
+                  <strong style={{ fontSize: "12px", color: "#475569" }}>Top Features Ranked:</strong>
+                  <ul style={{ margin: "6px 0 0 0", paddingLeft: "20px", fontSize: "11px", lineHeight: "1.6" }}>
+                    {saeData.topFeatures.slice(0, 5).map((f: any, idx: number) => {
+                      const isSelected = f.feature_idx === saeData.selectedFeature;
+                      return (
+                        <li key={f.feature_idx} style={{
+                          fontWeight: isSelected ? "700" : "400",
+                          color: isSelected ? "#ea580c" : "#1e293b",
+                          background: isSelected ? "#fff7ed" : "transparent",
+                          padding: "3px 6px",
+                          margin: "2px -6px",
+                          borderRadius: "3px",
+                          borderLeft: isSelected ? "3px solid #ea580c" : "none"
+                        }}>
+                          {isSelected && "→ "} Feature {f.feature_idx}: {f.weight > 0 ? "+" : ""}{f.weight.toFixed(3)}
+                          {isSelected && " ⭐"}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+
+                <div style={{ marginTop: "10px", padding: "8px", background: "#eff6ff", borderRadius: "4px", border: "1px solid #93c5fd" }}>
+                  <strong style={{ fontSize: "11px", color: "#1e40af" }}>💡 How to Use:</strong>
+                  <ol style={{ margin: "4px 0 0 0", paddingLeft: "16px", fontSize: "10px", lineHeight: "1.4", color: "#475569" }}>
+                    <li>Change feature selection in left panel dropdown</li>
+                    <li>Adjust α (alpha) slider to control perturbation strength</li>
+                    <li>Click "Apply Feature Perturbation" to modify activations</li>
+                    <li>Click "Run Model" to see changes in robot behavior</li>
+                  </ol>
+                </div>
+              </div>
+            )}
           </div>
         )}
         

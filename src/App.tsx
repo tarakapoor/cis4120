@@ -14,6 +14,7 @@ export default function App() {
   const [currentActivation, setCurrentActivation] = useState(null);
   const [showHelp, setShowHelp] = useState(false);
   const [isPanelMinimized, setIsPanelMinimized] = useState(false);
+  const [saeData, setSaeData] = useState(null);
 
   return (
     <div style={{ display: "flex", height: "100vh", flexDirection: "column", fontFamily: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", position: "relative" }}>
@@ -166,12 +167,13 @@ export default function App() {
               setActivations(results.activations);
             }
           }}
+          onSAEUpdate={(data) => setSaeData(data)}
         />
 
         <div style={{ flex: 1, overflow: "auto", display: "flex", flexDirection: "column", position: "relative", zIndex: 1 }}>
           {model ? (
             <>
-              <NetworkGraph model={model} currentActivation={currentActivation} />
+              <NetworkGraph model={model} currentActivation={currentActivation} saeData={saeData} />
               {activations && (
                 <ActivationViewer
                   activations={activations}

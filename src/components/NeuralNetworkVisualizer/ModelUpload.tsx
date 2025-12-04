@@ -1,17 +1,24 @@
 // ModelUpload.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InfoPanel from "../UI/InfoPanel";
 import TermDefinition from "../UI/TermDefinition";
 
 type Summary = { layers: { size: number }[] };
+type SAEData = {
+  topFeatures: any[];
+  selectedFeature: number | null;
+  saeInfo: any | null;
+  tapIndex: number;
+};
 type Props = {
-  onLoadModel: (summary: Summary) => void;
+  onLoadModel: (summary: Summary, saeData?: SAEData) => void;
   onRunComplete?: (results: any) => void;
   isMinimized?: boolean;
   onToggleMinimize?: () => void;
+  onSAEUpdate?: (saeData: SAEData) => void;
 };
 
-export default function ModelUpload({ onLoadModel, onRunComplete, isMinimized = false, onToggleMinimize }: Props) {
+export default function ModelUpload({ onLoadModel, onRunComplete, isMinimized = false, onToggleMinimize, onSAEUpdate }: Props) {
   const [modelId, setModelId] = useState<string | null>(null);
   const [weightKeys, setWeightKeys] = useState<string[]>([]);
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
@@ -27,6 +34,18 @@ export default function ModelUpload({ onLoadModel, onRunComplete, isMinimized = 
   const [topFeatures, setTopFeatures] = useState<any[]>([]);
   const [selectedFeature, setSelectedFeature] = useState<number | null>(null);
   const [featureAlpha, setFeatureAlpha] = useState(2.0);
+
+  // Notify parent when SAE data changes
+  useEffect(() => {
+    if (onSAEUpdate && saeLoaded) {
+      onSAEUpdate({
+        topFeatures,
+        selectedFeature,
+        saeInfo,
+        tapIndex: saeInfo?.tap_index || 4
+      });
+    }
+  }, [saeLoaded, topFeatures, selectedFeature, saeInfo, onSAEUpdate]);
 
   async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -181,6 +200,8 @@ export default function ModelUpload({ onLoadModel, onRunComplete, isMinimized = 
       // Auto-interpret features
       if (data.has_cached_data) {
         await interpretFeatures();
+      } else {
+        console.warn("No cached data available for SAE interpretation. Run the model with 'Capture Activations' first.");
       }
     } catch (e: any) {
       alert(`Failed to load SAE: ${e?.message || e}`);
@@ -204,12 +225,17 @@ export default function ModelUpload({ onLoadModel, onRunComplete, isMinimized = 
       if (!res.ok) throw new Error(await res.text());
       const data = await res.json();
 
+      console.log("Interpreted features:", data.features);
       setTopFeatures(data.features);
       if (data.features.length > 0) {
         setSelectedFeature(data.features[0].feature_idx);
+        console.log("Auto-selected feature:", data.features[0].feature_idx);
+      } else {
+        console.warn("No features were interpreted. Check if cached_obs.pt and tapped_activations.pt exist.");
       }
     } catch (e: any) {
       console.error("Failed to interpret features:", e);
+      alert(`Failed to interpret features: ${e?.message || e}`);
     } finally {
       setBusy(false);
     }
@@ -521,8 +547,40 @@ export default function ModelUpload({ onLoadModel, onRunComplete, isMinimized = 
             {!saeLoaded ? (
               <>
                 <p style={{ fontSize: 13, marginBottom: "12px", color: "#94a3b8", textAlign: "left" }}>
-                  Load a Sparse Autoencoder to interpret and perturb learned features.
+                  Train or load a Sparse Autoencoder to interpret and perturb learned features.
                 </p>
+                <button
+                  onClick={() => alert("SAE training is configured in the backend. This demo uses pre-trained models.")}
+                  disabled={busy}
+                  style={{
+                    width: "100%",
+                    padding: "10px 16px",
+                    marginBottom: "12px",
+                    background: busy ? "#475569" : "#475569",
+                    color: "white",
+                    border: "none",
+                    borderRadius: 6,
+                    cursor: busy ? "not-allowed" : "pointer",
+                    fontSize: 14,
+                    fontWeight: 600,
+                    transition: "all 0.2s",
+                    boxShadow: busy ? "none" : "0 2px 6px rgba(0,0,0,0.3)"
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!busy) {
+                      e.currentTarget.style.background = "#64748b";
+                      e.currentTarget.style.transform = "translateY(-1px)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!busy) {
+                      e.currentTarget.style.background = "#475569";
+                      e.currentTarget.style.transform = "translateY(0)";
+                    }
+                  }}
+                >
+                  Train SAE
+                </button>
                 <button
                   onClick={loadSAE}
                   disabled={busy}
@@ -558,8 +616,59 @@ export default function ModelUpload({ onLoadModel, onRunComplete, isMinimized = 
             ) : (
               <>
                 <div style={{ fontSize: 13, marginBottom: "12px", color: "#94a3b8", textAlign: "left" }}>
-                  <div>Latent dim: {saeInfo?.d_latent}, Top-K: {saeInfo?.k}</div>
+                  <div>✅ SAE Loaded!</div>
+                  <div>Latent dim: {saeInfo?.d_latent}, Top-K: {saeInfo?.k}, Tap Layer: {saeInfo?.tap_index}</div>
+                  <div style={{ marginTop: "8px", padding: "8px", background: "#dcfce7", borderRadius: "4px", border: "1px solid #86efac" }}>
+                    <strong style={{ color: "#166534", fontSize: "12px" }}>Status:</strong>
+                    <div style={{ fontSize: "11px", color: "#166534", marginTop: "4px" }}>
+                      {topFeatures.length > 0 ? (
+                        <>✅ {topFeatures.length} features interpreted</>
+                      ) : (
+                        <>⚠️ No features interpreted yet. Run model with activations to interpret features.</>
+                      )}
+                    </div>
+                    {selectedFeature !== null && (
+                      <div style={{ fontSize: "11px", color: "#166534", marginTop: "4px" }}>
+                        ✅ Feature {selectedFeature} selected
+                      </div>
+                    )}
+                  </div>
                 </div>
+
+                {topFeatures.length === 0 && (
+                  <button
+                    onClick={() => interpretFeatures(0)}
+                    disabled={busy}
+                    style={{
+                      width: "100%",
+                      padding: "10px 16px",
+                      marginBottom: "12px",
+                      background: busy ? "#475569" : "#475569",
+                      color: "white",
+                      border: "none",
+                      borderRadius: 6,
+                      cursor: busy ? "not-allowed" : "pointer",
+                      fontSize: 14,
+                      fontWeight: 600,
+                      transition: "all 0.2s",
+                      boxShadow: busy ? "none" : "0 2px 6px rgba(0,0,0,0.3)"
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!busy) {
+                        e.currentTarget.style.background = "#64748b";
+                        e.currentTarget.style.transform = "translateY(-1px)";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!busy) {
+                        e.currentTarget.style.background = "#475569";
+                        e.currentTarget.style.transform = "translateY(0)";
+                      }
+                    }}
+                  >
+                    {busy ? "Interpreting..." : "Interpret Features"}
+                  </button>
+                )}
 
                 {topFeatures.length > 0 && (
                   <div style={{ marginBottom: "12px" }}>
@@ -625,7 +734,7 @@ export default function ModelUpload({ onLoadModel, onRunComplete, isMinimized = 
                   </div>
                 )}
               </>
-              )}
+            )}
             </div>
           </>
         )}
