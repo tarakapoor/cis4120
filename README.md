@@ -200,20 +200,20 @@ cis4120/
 
 # Troubleshooting
 ## Model Upload Fails
-Ensure .pt is a valid PyTorch state_dict
-Check backend logs
-Confirm architecture parsing supports your model
+- Ensure .pt is a valid PyTorch state_dict
+- Check backend logs
+- Confirm architecture parsing supports your model
 ## Frontend Cannot Reach Backend
-Backend must run on port 8000
-Check CORS errors in browser console
-Ensure Conda env has required packages
+- Backend must run on port 8000
+- Check CORS errors in browser console
+- Ensure Conda env has required packages
 ## SAE Fails to Load
-Verify files exist in /python
-Use . when asked for path
+- Verify files exist in /python
+- Use . when asked for path
 ## Graph Not Updating
-Reselect neuron
-Refresh UI
-Check devtools console for TypeScript errors
+- Reselect neuron
+- Refresh UI
+- Check devtools console for TypeScript errors
 
 # AI-Assisted Code Attribution
 Project code was developed using the help of ChatGPT, Cursor, and Claude for code generation, scaffolding, debugging, and refactoring.
