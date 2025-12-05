@@ -14,7 +14,7 @@ The goal of this project is to make neural networks transparent, understandable,
 - Zoom, pan, and click to select neurons  
 - Color-coded edges:
   - **Blue** → positive weights  
-  - **Red** → negative weights  
+  - **Grey** → negative weights  
 - Edge thickness reflects magnitude  
 - Real-time updates as weights are modified
 
