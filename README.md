@@ -207,7 +207,7 @@ Confirm architecture parsing supports your model
 Backend must run on port 8000
 Check CORS errors in browser console
 Ensure Conda env has required packages
-SAE Fails to Load
+## SAE Fails to Load
 Verify files exist in /python
 Use . when asked for path
 ## Graph Not Updating
