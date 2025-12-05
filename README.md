@@ -4,12 +4,12 @@ An interactive web application for visualizing, debugging, and manipulating neur
 
 ## Features
 
-- 🎨 **Interactive Network Visualization**: Visualize neural network architectures with clickable neurons and weighted connections
-- ⚙️ **Weight Adjustment**: Adjust individual weights between neurons to steer model behavior
-- 📊 **Model Execution**: Run models in various environments and view performance metrics
-- 🔍 **SAE Feature Analysis**: Load sparse autoencoders to interpret and perturb learned features
-- 📚 **Inline Definitions**: Click on technical terms to see beginner-friendly explanations
-- 🎯 **Real-time Feedback**: See weight changes and activations update in real-time
+- **Interactive Network Visualization**: Visualize neural network architectures with clickable neurons and weighted connections
+- **Weight Adjustment**: Adjust individual weights between neurons to steer model behavior
+- **Model Execution**: Run models in various environments and view performance metrics
+- **SAE Feature Analysis**: Load sparse autoencoders to interpret and perturb learned features
+- **Inline Definitions**: Click on technical terms to see beginner-friendly explanations
+- **Real-time Feedback**: See weight changes and activations update in real-time
 
 ## Prerequisites
 
@@ -436,41 +436,42 @@ The frontend will open at: http://localhost:1234
 (Or next available port)
 
 
-🧩 Usage Guide
-Step 1 — Upload a Model
-Click Select Model File
-Upload .pt (PyTorch state_dict) or .json architecture
-Model is visualized automatically
 
-Step 2 — Explore Visualization
-Click neurons to inspect
-Orange → connected neurons
-Scroll → zoom
-Drag → pan
+# Usage Guide
+## Step 1 — Upload a Model
+- Click Select Model File
+- Upload .pt (PyTorch state_dict) or .json architecture
+- Model is visualized automatically
 
-Step 3 — Edit Weights
-Adjust 1-to-1 weight sliders
-Apply bulk ops:
-scale
-noise
-set constant
+## Step 2 — Explore Visualization
+- Click neurons to inspect
+- Orange → connected neurons
+- Scroll → zoom
+- Drag → pan
+
+## Step 3 — Edit Weights
+- Adjust 1-to-1 weight sliders
+- Apply bulk ops:
+   - scale
+   - noise
+   - set constant
 Graph updates instantly.
 
-Step 4 — Run Model
-Choose environment (Walker2d-v4, hard_stable, etc.)
-Optionally enable activation capture
-Click Run Model
-View rollout metrics
+## Step 4 — Run Model
+- Choose environment (Walker2d-v4, hard_stable, etc.)
+- Optionally enable activation capture
+- Click Run Model
+- View rollout metrics
 
-Step 5 — Load SAE
-Ensure files exist in /python:
-walker_sae.pt
-cached_obs.pt
-tapped_activations.pt
+## Step 5 — Load SAE
+- Ensure files exist in /python:
+- walker_sae.pt
+- cached_obs.pt
+- tapped_activations.pt
 
 Click Load SAE, enter . for current directory.
 
-Step 6 — Feature Perturbation
+## Step 6 — Feature Perturbation
 Select SAE feature
 Set α
 Apply perturbation
@@ -480,6 +481,7 @@ Run model to compare output
 
 
 # Project Structure
+```text
 cis4120/
 ├── python/
 │   ├── server.py
@@ -521,10 +523,10 @@ cis4120/
 ├── SETUP_GUIDE.md
 ├── FINAL_SUMMARY.md
 └── README.md
+```
 
 
-
-# 🧩 Troubleshooting
+# Troubleshooting
 ## Model Upload Fails
 Ensure .pt is a valid PyTorch state_dict
 Check backend logs
